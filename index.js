@@ -1,7 +1,13 @@
 const express = require ('express')
+const ejsMate = require('ejs-mate')
 const path = require('path')
 const mongoose = require('mongoose')
 const app = express()
+
+
+
+const formulirPasien = require ('./models/formulirPasien')
+const kartuBerobat = require('./models/kartuBerobat')
 
 // setup databases
 const PORT = 3000;
@@ -13,12 +19,12 @@ mongoose.connect(`mongodb://127.0.0.1/${databases}`)
     console.log(err)
 })
 
-
+app.engine('ejs',ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'front-end'))
 
 
-app.get('/index', (req,res)=>{
+app.get('/', (req,res)=>{
     res.render('pages/index')
 })
 app.listen(PORT,()=>{
