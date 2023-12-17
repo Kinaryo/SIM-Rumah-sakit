@@ -27,8 +27,14 @@ app.use(express.static(path.join(__dirname,'public')))
 
 
 app.get('/', (req,res)=>{
-    const imagepath = 'public/images/asset/logo.png'
-    res.render('pages/index', {imagepath})
+    res.render('pages/index')
+})
+
+app.get('/pages/kartuberobat',(req,res)=>{
+    res.render('pages/kartuberobat')
+})
+app.get('/pages/formulirpasien',(req,res)=>{
+    res.render('pages/formulirpasien')
 })
 app.listen(PORT,()=>{
     console.log(`Server is running on http://127.0.0.1:${PORT}`)

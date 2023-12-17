@@ -1,0 +1,52 @@
+<% layout('/layouts/app') %>
+
+<div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
+    <form action="">
+        <h3 style="text-align: center;;"> Form Pendaftaran Pasien</h3>
+        
+        <div class="mb-1">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" name="nama" class="form-control sm id="nama" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="nik" class="form-label">NIK</label>
+            <input type="number" name="nik" class="form-control" id="nik" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="nomorRujukan" class="form-label">Nomor Rujukan</label>
+            <input type="number" name="nik" class="form-control" id="nomorRujukan" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="noTelpon" class="form-label">No. Telpon</label>
+            <input type="number" name="noTelpon" class="form-control" id="noTelpon" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
+            <input type="tanggalMasuk" name="tanggalMasuk" class="form-control" id="tanggalMasuk" placeholder="">
+        </div>
+
+        <select class="form-select mb-1 mt-3" aria-label="Default select example">
+            <option selected>Pilih Poli</option>
+            <option value="poliGigi">Poli Gigi</option>
+            <option value="poliMata">Poli Mata</option>
+            <option value="PoliTHT">PoliTHT</option>
+            <option value="UGD">UGD</option>
+            <option value="rawatInap">Rawat Inap</option>
+          </select>
+
+        <div class="mb-1">
+            <label for="alamatSaatIni" class="form-label">Alamat Saat Ini</label>
+            <textarea type="alamatSaatIni" name="alamatSaatIni" id="alamatSaatIni" class="form-control"></textarea>
+        </div>
+
+
+        <div>
+            <button type="submit" class="btn btn-success mt-3">Simpan</button>
+            <a href="/pages/kartuberobat"><button type="button" class="btn  btn-danger mt-3">Cancel</button></a>
+        </div>
+    </form>
+</div>
