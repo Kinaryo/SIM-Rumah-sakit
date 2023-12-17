@@ -1,0 +1,56 @@
+* {
+      padding: 0;
+      margin: 0;
+      font-family: 'Arial', sans-serif; /* Use a suitable font */
+    }
+
+    #nav #nav-nav ul {
+      list-style: none;
+      background-color: rgb(125, 139, 134);
+    }
+
+    ul li {
+      display: inline-block;
+      position: relative;
+    }
+
+    ul li a {
+      display: block;
+      padding: 15px 20px;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer; /* Add cursor pointer for clickable items */
+    }
+
+    ul li ul.dropdown {
+      width: 350%;
+      height: 75%;
+      background: #000000;
+      position: absolute;
+      z-index: 999;
+      display: none;
+      padding-top: 5%; 
+
+    
+    }
+    ul li.active a {
+      background: #a4e57d;
+      display: inline;
+    }
+
+    ul li ul.dropdown li {
+      display: inline;
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+
+    ul li ul.dropdown a {
+      display: inline;
+      padding: 0px 0px; /* Adjust submenu item padding */
+    }
+
+    ul li:hover ul.dropdown {
+      display: inline;
+    }

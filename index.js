@@ -22,10 +22,13 @@ mongoose.connect(`mongodb://127.0.0.1/${databases}`)
 app.engine('ejs',ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'front-end'))
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname,'public')))
 
 
 app.get('/', (req,res)=>{
-    res.render('pages/index')
+    const imagepath = 'public/images/asset/logo.png'
+    res.render('pages/index', {imagepath})
 })
 app.listen(PORT,()=>{
     console.log(`Server is running on http://127.0.0.1:${PORT}`)
