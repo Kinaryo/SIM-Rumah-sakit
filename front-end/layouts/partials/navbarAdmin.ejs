@@ -1,0 +1,133 @@
+  <style>
+
+
+    #nav {
+      background-color: #2C353E; /* Increased brightness for the navigation background */
+      padding: 5px 0;
+    }
+
+    #nav .nav-nav ul {
+      list-style: none;
+    }
+
+    ul li {
+      display: inline-block;
+      position: relative;
+    }
+
+    ul li a {
+      display: block;
+      padding: 1px 20px;
+      padding-top: 15px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    ul li ul.dropdown {
+      width: 200%;
+      background: #4A5360; /* Brighter color for the dropdown background */
+      position: absolute;
+      z-index: 999;
+      display: none;
+      padding-top: 5%;
+      left: 0;
+    }
+
+    ul li.active a {
+      background: #4CAF50;
+      display: inline-block;
+    }
+
+    ul li ul.dropdown li {
+      display: block;
+      margin: 0;
+    }
+
+    ul li ul.dropdown a {
+      display: block;
+      padding: 10px 20px;
+    }
+
+    ul li:hover ul.dropdown {
+      display: block;
+    }
+
+    .nav-nav {
+      flex: 3; /* Adjusted flex value for nav-nav to make it even larger */
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      padding-top: 15px;
+    }
+
+    .search-container input {
+      flex: 2; /* Adjusted flex value for the input to make it smaller */
+      padding: 2px;
+      padding-left: 10px;
+      width: 60px;
+      margin-right: 10px;
+      border: none;
+    }
+
+    .search-container button {
+      flex: 1;
+      padding: 2px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav">
+  <div class="container-fluid">
+    <div class="row justify-content-between nav">
+      <div class="col nav-nav" >
+        <ul>
+          <li>
+            <a href="/" id="pendaftaran">Pendaftaran</a>
+            <ul class="dropdown">
+              <li><a href="/kartuberobat">Formulir Kartu Berobat</a></li>
+              <li><a href="/formulirpasien">Formulir Pasien</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/daftarpasien" id="">Daftar Pasien</a>
+          </li>
+
+          <li>
+            <a href="/daftarkunjungan" id="">Daftar Kunjungan</a>
+          </li>
+
+          <li>
+            <a href="#" id="">Asuransi</a>
+          </li>
+
+          <li>
+            <a href="" id="">Laporan</a>
+            <ul class="dropdown">
+              <li><a href="/laporan/harian">Harian</a></li>
+              <li><a href="/laporan/mingguan">Mingguan</a></li>
+              <li><a href="laporan/bulanan">Bulanan</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <div class="search-container">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+      </div> 
+    </div>
+
+  </div>
+</div>

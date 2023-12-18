@@ -1,0 +1,67 @@
+<% layout('/layouts/app') %>
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .image a img {
+            max-width: 25px;
+        }
+
+    </style>
+<div style="margin-top: 125px;">
+
+
+<h2 style="text-align: center;">Daftar Kunjungan</h2>
+
+<table >
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Jenis Kelamin</th>
+        <th>Keterangan</th>
+        <th>Ruangan</th>
+        <th>Jam Besuk</th>
+        <th>Aksi</th>
+        
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>John Doe</td>
+        <td>laki-laki</td>
+        <td>Besuk ibu rini</td>
+        <td>Mawar 1</td>
+        <td>09.00</td>
+        <td>
+            <div class="image">
+            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
+            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>    
+             </div>
+          </td>
+    </tr>
+</div>
