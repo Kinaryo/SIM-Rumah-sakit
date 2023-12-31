@@ -1,1 +1,114 @@
-<% layout('/layouts/app') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Report</title>
+
+    <!-- Link ke file CSS eksternal jika ada -->
+    <% layout('/layouts/app') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .report-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-header {
+            margin-bottom: 20px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        .report-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .report-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .report-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .report-footer {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="report-container">
+        <div class="report-header">
+            <h2>Weekly Report</h2>
+            <p>Date: <span>January 1, 2023 - January 7, 2023</span></p>
+        </div>
+
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>No Rawat Inap</th>
+                    <th>Nama</th>
+                    <th>Dokter/Perawat</th>
+                    <th>Diagnosa</th>
+                    <th>Cara Masuk</th>
+                    <th>Cara Keluar</th>
+                    <th>Tgl Masuk</th>
+                    <th>Tgl Keluar</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add your report data here -->
+                <tr>
+                    <td>1</td>
+                    <td>Lukman</td>
+                    <td>9101190808080007</td>
+                    <td>Belum</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <div class="report-footer">
+            <p>Total Patients: 1</p>
+        </div>
+    </div>
+</body>
+
+</html>

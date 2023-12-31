@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const kartuBerobatSchema = new Schema({
     nama: String,
-    nik: String,
+    nik: Number,
+    kodeRegistrasi: String,
+    no_hp : Number,
     tanggalLahir: {
         type: Date,
     },
     jenisKelamain: String,
-    Alamat:String,
+    alamat:String,
     tanggalDaftar:{
         type: Date,
 

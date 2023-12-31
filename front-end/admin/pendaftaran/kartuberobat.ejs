@@ -1,42 +1,83 @@
 <% layout('/layouts/app') %>
 
 <div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
-    <form action="">
-        <h3 style="text-align: center;;"> Form Pendaftaran Kartu Berobat</h3>
+    <h3 style="text-align: center;"> Form Pendaftaran Kartu Berobat</h3>
+    
+    <!-- Tambahkan label untuk nomor registrasi di bawah judul -->
+
+    <form id="registrationForm" action="/saveKartuBerobat" method="POST">
+        <!-- Sisanya dari formulir tetap sama -->
+        <div class="mb-3">
+            <label for="kartuBerobat[kodeRegistrasi]" class="form-label">Kode Registrasi</label>
+            <input type="text" name="kartuBerobat[kodeRegistrasi]" class="form-control" id="kodeRegistrasi" readonly>
+        </div>
         
         <div class="mb-1">
             <label for="nama" class="form-label">Nama</label>
-            <input type="text" name="nama" class="form-control sm id="nama" placeholder="">
+            <input type="text" name="kartuBerobat[nama]" class="form-control sm" id="nama" placeholder="">
         </div>
 
         <div class="mb-1">
             <label for="nik" class="form-label">Nik</label>
-            <input type="number" name="nik" class="form-control" id="nik" placeholder="">
+            <input type="number" name="kartuBerobat[nik]" class="form-control" id="nik" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="no_hp" class="form-label">No.HP</label>
+            <input type="number" name="kartuBerobat[no_hp]" class="form-control" id="no_hp" placeholder="">
         </div>
 
         <div class="mb-1">
             <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-            <input type="date" name="tanggalLahir" class="form-control" id="tanggalLahir" placeholder="">
+            <input type="date" name="kartuBerobat[tanggalLahir]" class="form-control" id="tanggalLahir" placeholder="">
         </div>
 
         <div class="mb-1">
             <label for="umur" class="form-label">Umur</label>
-            <input type="number" name="umur" class="form-control" id="umur" placeholder="">
+            <input type="number" name="kartuBerobat[umur]" class="form-control" id="umur" placeholder="">
         </div>
 
         <div class="mb-1">
             <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-            <input type="text" name="jenisKelamin" class="form-control" id="jenisKelamin" placeholder="Jenis Kelamin">
+            <input type="text" name="kartuBerobat[jenisKelamin]" class="form-control" id="jenisKelamin" placeholder="Jenis Kelamin">
         </div>
 
         <div class="mb-1">
             <label for="alamat" class="form-label">Alamat</label>
-            <textarea type="text" name="alamat" id="alamat" class="form-control"></textarea>
+            <textarea type="text" name="kartuBerobat[alamat]" id="alamat" class="form-control"></textarea>
         </div>
 
         <div>
             <button type="submit" class="btn btn-success mt-3">Simpan</button>
-            <a href="/pages/kartuberobat"><button type="button" class="btn  btn-danger mt-3">Cancel</button></a>
+            <a href="/pages/kartuberobat"><button type="button" class="btn btn-danger mt-3">Cancel</button></a>
         </div>
     </form>
 </div>
+
+
+<script>
+
+    function generateKodeRegistrasi(){
+        const kodeRSM = 'RSM';
+        const tahun = new Date().getFullYear().toString();
+
+        const empatAngkaAcak = generateRandomNumber(4)
+
+        const kodeRegistrasiInput = document.getElementById('kodeRegistrasi');
+    kodeRegistrasiInput.value = `${kodeRSM}${tahun}${empatAngkaAcak}`
+    }
+
+    function generateRandomNumber(length){
+        let result= '';
+        for(let i = 0; i<length; i++){
+            result += Math.floor(Math.random()*10).toString()
+        }
+        return result;
+    }
+
+    window.onload = function () {
+            generateKodeRegistrasi();
+        };
+
+
+</script>

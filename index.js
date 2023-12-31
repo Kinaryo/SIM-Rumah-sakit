@@ -24,10 +24,11 @@ app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'front-end'))
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname,'public')))
+app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res)=>{
-    res.render('admin/index')
+    res.render('admin/pendaftaran/formulirpasien')
 })
 
 
@@ -35,6 +36,14 @@ app.get('/', (req,res)=>{
 app.get('/kartuberobat',(req,res)=>{
     res.render('admin/pendaftaran/kartuberobat')
 })
+app.post('/saveKartuBerobat', async (req, res) => {
+    const savekartuBerobat = kartuBerobat(req.body.kartuBerobat);
+    await savekartuBerobat.save();
+    console.log(savekartuBerobat);
+
+    // Pass the data to the template
+    res.render('print/printKartuBerobat', { saveKartuBerobat: savekartuBerobat });
+});
 app.get('/formulirpasien',(req,res)=>{
     res.render('admin/pendaftaran/formulirpasien')
 })
@@ -92,7 +101,14 @@ app.get('/rawatinap/farmasilogistik/bulanan',(req,res)=>{
 app.get('/rawatinap/datakamar', (req,res)=>{
     res.render('rawatinap/dataKamar')
 })
+app.get('/rawatinap/pasien/control', (req,res)=>{
+    res.render('rawatinap/control')
+})
 
+// print
+app.get('/kartuberobat/cetak', (req,res)=>{
+    res.render('print/printKartuBerobat')
+})
 
 app.listen(PORT,()=>{
     console.log(`Server is running on http://127.0.0.1:${PORT}`)

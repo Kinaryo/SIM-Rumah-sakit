@@ -1,0 +1,50 @@
+<% layout('/layouts/app') %>
+
+<div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
+    <form action="">
+        <h3 style="text-align: center;"> Form Control Pasien</h3>
+        
+        <div class="mb-1">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" name="nama" class="form-control sm " id="name" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="keluhan" class="form-label">Keluhan</label>
+            <textarea type="text" name="keluhan" id="keluhan" class="form-control"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-around ">
+            <div class="mb-1">
+                <label for="nama" class="form-label">Respirasi</label>
+                <input type="text" name="nama" class="form-control sm " id="name" placeholder="">
+            </div>
+            <div class="mb-1">
+                <label for="nama" class="form-label">Tensi</label>
+                <input type="text" name="nama" class="form-control sm " id="name" placeholder="">
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-around ">
+            <div class="mb-1">
+                <label for="nadi" class="form-label">Nadi</label>
+                <input type="text" name="nadi" class="form-control sm " id="nadi" placeholder="">
+            </div>
+            <div class="mb-1">
+                <label for="oksigen" class="form-label">Tensi</label>
+                <input type="text" name="oksigen\" class="form-control sm " id="oksigen" placeholder="">
+            </div>
+
+        </div>
+
+
+
+
+
+        <div>
+            <button type="submit" class="btn btn-success mt-3">Simpan</button>
+            <a href="/pages/kartuberobat"><button type="button" class="btn  btn-danger mt-3">Cancel</button></a>
+        </div>
+    </form>
+</div>

@@ -1,1 +1,296 @@
-<% layout('/layouts/app') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Report</title>
+
+    <!-- Link ke file CSS eksternal jika ada -->
+    <% layout('/layouts/app') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .report-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-header {
+            margin-bottom: 20px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        .report-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .report-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .report-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .report-footer {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .controler {
+            display: flex;
+            width: 100%;
+            justify-content: space-between; /* Menambahkan ruang di antara elemen */
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            background-color: burlywood;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 45%; /* Mengatur lebar elemen */
+        }
+
+        h5 {
+            font-size: 12px;
+            text-align: center;
+            margin: 0;
+        }
+
+        p {
+            margin: 5px 0; /* Mengatur jarak atas dan bawah */
+        }
+
+        .card span {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="report-container">
+        <div class="report-header" style="margin-top: 75px;">
+            <h2>Laporan Mingguan</h2>
+            <p>Date: <span>January 1, 2023 - January 7, 2023</span></p>
+        </div>
+        <style>
+            .cover {
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+            .cover .card{
+                margin-left: 2px;
+                margin-right: 3px;
+            }
+        </style>
+        <div class="controler bg-light bg-gradient d-flex cover">
+            <style>
+                .card{
+                    margin-left: 30px;
+                }
+            </style>
+            <div class="card bg-warning-subtle">
+                <style>
+                    .card h5 {
+                        margin-bottom: 5px;
+                        font-size: 16px; /* Add some margin below the heading for spacing */
+                    }
+            
+                 </style>
+            
+                <h5>Pasien</h5>
+                <table>
+                    <tr>
+                        <th>Pasien Baru</th>
+                        <td>?</td>
+                    </tr>
+                    <tr>
+                        <th>Pasien Lama</th>
+                        <td>0</td>
+                    </tr>
+                   <tr>
+                        <th>Pasien Sembuh</th>
+                        <td>0</td>
+                    </tr> 
+
+                    <tr>
+                        <th>Pasien Dirujuk</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>Pasien Meninggal</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">Total Pasien</th>
+                        <td style="font-weight: bold;">0</td>
+                    </tr>
+                    </table>
+                
+            </div>
+            <div class="card bg-success-subtle">
+                <style>
+                    .card h5 {
+                        margin-bottom: 5px;
+                        font-size: 16px; /* Add some margin below the heading for spacing */
+                    }
+                    table {
+                        width: 100%;
+                        margin-top: 10px;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        border: 1px solid #dee2e6;
+                        padding: 5px;
+                        text-align: left;
+                    }
+
+        th {
+            color: black;
+            font-weight: 200;
+        }
+                   
+                </style>
+                <h5>Penyakit Potensi Wabah (W2)</h5>
+                <hr>
+                <table>
+                    <tr>
+                        <th>Malaria Tropika</th>
+                        <td>?</td>
+                    </tr>
+                    <tr>
+                        <th>Malaria tertiava</th>
+                        <td>0</td>
+                    </tr>
+                   <tr>
+                        <th>DBD</th>
+                        <td>0</td>
+                    </tr> 
+
+                    <tr>
+                        <th>TBC</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>Diare</th>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <th>Campak</th>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <th>ILI</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>Disentri</th>
+                        <td>0</td>
+                    </tr>
+
+
+                </table>
+            
+                </div>
+                <style>
+                    .card h5 {
+                        margin-bottom: 5px;
+                        font-size: 16px; /* Add some margin below the heading for spacing */
+                    }
+                
+                    .image-container {
+                        background-color: blue;
+                        width: 80%;
+                        height: 70%;
+                        margin-left: auto;
+                        margin-right:auto ;
+                    }
+                
+                    .responsive-image {
+                        width: 100%;
+                        height: auto;
+                    }
+                </style>
+                <div class="card bg-info-subtle">
+                    <h5>Grafik Jumlah Pasien Minggu ini </h5>
+                    <hr>
+                    <div class="image-container">
+                        <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703889927/simrs/grafik_vwa7aq.png" alt="Grafik minggu ini" class="responsive-image">
+                    </div>
+                </div>
+            
+        </div>
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>No Rawat Inap</th>
+                    <th>Nama</th>
+                    <th>Dokter/Perawat</th>
+                    <th>Diagnosa</th>
+                    <th>Cara Masuk</th>
+                    <th>Cara Keluar</th>
+                    <th>Tgl Masuk</th>
+                    <th>Tgl Keluar</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add your report data here -->
+                <tr>
+                    <td>1</td>
+                    <td>Lukman</td>
+                    <td>9101190808080007</td>
+                    <td>Belum</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                    <td>Habis melahirkan</td>
+                    <td>29/09/2019</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30px;">
+            <button type="submit">Cetak</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<% layout('/layouts/app') %>
+
+<div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
+    <h3 style="text-align: center;"> Form Pendaftaran Kartu Berobat</h3>
+    
+    <!-- Tambahkan label untuk nomor registrasi di bawah judul -->
+    <div class="mb-3">
+        <label for="nomorRegistrasi" class="form-label">Nomor Registrasi</label>
+        <input type="text" name="nomorRegistrasi" class="form-control" id="nomorRegistrasi" readonly>
+    </div>
+
+    <form id="registrationForm" action="/saveKartuBerobat" method="POST">
+        <!-- Sisanya dari formulir tetap sama -->
+
+        <div class="mb-1">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" name="nama" class="form-control sm" id="nama" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="nik" class="form-label">Nik</label>
+            <input type="number" name="nik" class="form-control" id="nik" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
+            <input type="date" name="tanggalLahir" class="form-control" id="tanggalLahir" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="umur" class="form-label">Umur</label>
+            <input type="number" name="umur" class="form-control" id="umur" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
+            <input type="text" name="jenisKelamin" class="form-control" id="jenisKelamin" placeholder="Jenis Kelamin">
+        </div>
+
+        <div class="mb-1">
+            <label for="alamat" class="form-label">Alamat</label>
+            <textarea type="text" name="alamat" id="alamat" class="form-control"></textarea>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success mt-3">Simpan</button>
+            <a href="/pages/kartuberobat"><button type="button" class="btn btn-danger mt-3">Cancel</button></a>
+        </div>
+    </form>
+<!-- 
+    <script>
+        function confirmSave() {
+            // Menampilkan konfirmasi menggunakan window.confirm
+            if (window.confirm(`Apakah Anda yakin ingin menyimpan data?\n\n${getInputSummary()}`)) {
+                // Jika pengguna mengkonfirmasi, kirim formulir
+                document.getElementById('registrationForm').submit();
+            } else {
+                // Jika pengguna membatalkan, tidak ada tindakan yang diambil
+            }
+        }
+
+        // Fungsi untuk menghasilkan nomor registrasi
+        function generateNomorRegistrasi() {
+            const kodeRSM = "RSM";
+            
+            // Format tahun (YYYY)
+            const tahun = new Date().getFullYear().toString();
+
+            // Menghasilkan empat digit angka acak
+            const empatAngkaAcak = generateRandomNumber(4);
+
+            // Menetapkan nomor registrasi ke elemen input
+            const nomorRegistrasiInput = document.getElementById('nomorRegistrasi');
+            nomorRegistrasiInput.value = `${kodeRSM}${tahun}${empatAngkaAcak}`;
+        }
+
+        // Fungsi untuk menghasilkan angka acak
+        function generateRandomNumber(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += Math.floor(Math.random() * 10).toString(); // angka acak antara 0 dan 9
+            }
+            return result;
+        }
+
+        // Fungsi untuk memformat tanggal menjadi YYYYMMDD
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}${month}${day}`;
+        }
+
+        // Fungsi untuk mengumpulkan dan mengembalikan ringkasan hasil input
+        function getInputSummary() {
+            const nomorRegistrasi = document.getElementById('nomorRegistrasi').value || '';
+            const nama = document.getElementById('nama').value || '';
+            const nik = document.getElementById('nik').value || '';
+            const tanggalLahir = document.getElementById('tanggalLahir').value || '';
+            const umur = document.getElementById('umur').value || '';
+            const jenisKelamin = document.getElementById('jenisKelamin').value || '';
+            const alamat = document.getElementById('alamat').value || '';
+
+            // Menghasilkan ringkasan hasil input
+            return `Ringkasan Input:\n\nNomor Registrasi: ${nomorRegistrasi}\nNama: ${nama}\nNIK: ${nik}\nTanggal Lahir: ${tanggalLahir}\nUmur: ${umur}\nJenis Kelamin: ${jenisKelamin}\nAlamat: ${alamat}`;
+        }
+
+        // Memanggil fungsi generateNomorRegistrasi saat halaman dimuat
+        window.onload = function () {
+            generateNomorRegistrasi();
+        };
+    </script> -->
+</div>
