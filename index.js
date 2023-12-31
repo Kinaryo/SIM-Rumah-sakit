@@ -71,21 +71,25 @@ app.get('/formulirpasien',(req,res)=>{
 
 app.post('/saveformulirpasien', async (req, res) => {
     const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
-    const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
 
     try {
-        if (kodeRegistrasiInput === kodeRegistrasiKartu.kodeRegistrasi) {
+        const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+
+        if (kodeRegistrasiKartu) {
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
             console.log(pasien);
             res.render('print/printPendaftaranPasien', { saveDataPasien: pasien });
+        } else {
+            res.status(404).send('Data kartuBerobat tidak ditemukan.');
         }
     } catch (error) {
         console.error(error);
         res.status(500).send('Terjadi kesalahan saat menyimpan data.');
     }
 });
+
 
 
 app.get('/saveformulirpasien/cetak', (req,res)=>{
