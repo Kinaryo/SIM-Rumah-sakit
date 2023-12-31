@@ -9,14 +9,24 @@
 
   .container {
     background-color: aquamarine;
-  }
+    margin-top: 150px;
+    width: 800px;
+    height: 300px;
+    padding-top: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* Mengatur agar card berada di tengah secara horizontal */
+    align-items: center; /* Mengatur agar card berada di tengah secara vertikal */
+}
 
-  .card {
-    margin-top: 130px;
-    max-width: 500px;
+.card {
+  margin-top: -30px;
+    max-width: 450px;
+    max-height: 250px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
+
 
   h2, h3, h4, h5, h6 {
     margin: 0;
@@ -28,40 +38,38 @@
     font-weight: bold;
     text-align: center;
   }
-  h6{
+
+  h6 {
     font-size: 12px;
     margin: 3px;
     margin-right: 4px;
   }
 
-  p{
+  p {
     text-align: center;
     font-size: 12px;
   }
-  .field-content p {
-    font-size: 12px;
-    display: block;
-    margin: 0;
-    margin-left: 5px;
-    text-align: left;
-  }
-  .container{
-    margin-top: 150px;
+
+
+  /* Gaya cetak */
+  @media print {
   }
 </style>
 
-<div class="container bg-body-secondary" style="width: 2480px; height: 3898px; padding-top: 30px;" >
-  <div class="card bg-success-subtle" style="width: 450px; max-height: 250px; margin-top: 10px;">
-    <div class="d-flex justify-content-between card-header" style="border-bottom:  2px solid black;">
+<div class="container bg-body-secondary" >
+
+  <div class="area-print" style="width: 500px; text-align: center;" id="area">
+  <div class="card bg-success-subtle" >
+    <div class="d-flex justify-content-between card-header" style="border-bottom: 2px solid black;">
       <!-- Left Image Logo -->
       <div class="image-logo1">
         <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996225/simrs/rsud_merauke-modified_nep793.png" style="max-width: 50px;" alt="">
       </div>
       <!-- Title Header -->
       <div class="title-header">
-        <h4>PEMERINTAH KABUPATEN MERAUKE</h4>
-        <h4>DINAS KESEHATAN</h4>
-        <h4>RSUD MERAUKE</h4>
+        <h4 style="text-align: center;">PEMERINTAH KABUPATEN MERAUKE</h4>
+        <h4 style="text-align: center;">DINAS KESEHATAN</h4>
+        <h4 style="text-align: center;">RSUD MERAUKE</h4>
         <p style="margin-bottom: 0px;">jl raya mandala, merauke, Papua Selatan 99616, Indonesia</p>
       </div>
       <!-- Right Image Logo -->
@@ -72,31 +80,32 @@
     <!-- Card Content -->
     <div class="card-content" style="padding: 0px 20px; margin-top: 2px;">
       <h2 style="font-size: 15px; font-weight: bold; text-align: center;">KARTU BEROBAT</h2>
-      <p>Kode Registrasi: <span><%= saveKartuBerobat.kodeRegistrasi %></span></p>
-      
+      <p style="text-align: center;">Kode Registrasi: <span><%= saveKartuBerobat.kodeRegistrasi %></span></p>
+
       <div class="d-flex justify-content-start">
-        <div class="content-label "  style="margin:0px; margin-top:2px ;">
-          <h6>Nama</h6>
-          <h6>No.HP</h6>
-          <h6>Alamat</span></h6>
-          </div>
-          <div class="field-content" style=" margin-top:2px ;">
-            <p> : <%= saveKartuBerobat.nama %></p>
-            <p> : <%= saveKartuBerobat.no_hp %></p>
-            <p> : <%= saveKartuBerobat.alamat %>
-          </div>
-      </div>
-
-
+        <div class="content-label" style="margin: 0px; margin-top: 2px;">
+          <h6 style="text-align: left;">Nama <span style="margin-left: 15px;">: <%= saveKartuBerobat.nama %></span></h6>
+          <h6 style="text-align: left;">No.HP <span style="margin-left: 11px;">: <%= saveKartuBerobat.no_hp %></span></h6>
+          <h6 style="text-align: left;">Alamat <span style="margin-left: 9px;">: <%= saveKartuBerobat.alamat %></span></h6>
+        </div>
     </div>
+
     <!-- Footer -->
-    <div class="card-footer text-body-secondary" style="padding: 10px; margin-top: 5px; margin-bottom: 0px;">
-      <p>Setiap kali berobat selalu dibawa untuk sekeluarga</p>
-    </div>
-  </div>
 
-  <!-- Print Button -->
-  <div>
-    <button class="btn btn-primary mt-3 mb-3">Print</button>
-  </div>
+  </div>    
+  <div class="card-footer text-body-secondary" style="padding: 10px; margin-top: 5px; margin-bottom: 0px;">
+      <p style="text-align:center;">Setiap kali berobat selalu dibawa untuk sekeluarga</p>
+    </div>
+</div>
+
+
+
+
+
+</div>
+<div>
+  <button class="btn btn-primary mt-3 mb-3" onclick="return printArea('area')">Print</button>
+  <a href="kartuberobat"><button class="btn btn-danger mt-3 mb-3 ">Batal</button></a>
+  
+</div>
 </div>
