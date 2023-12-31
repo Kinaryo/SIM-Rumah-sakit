@@ -69,9 +69,7 @@ app.get('/formulirpasien',(req,res)=>{
     res.render('admin/pendaftaran/formulirpasien')
 })
 
-const kartuBerobat = require('./models/kartuBerobat');
-const formulirPasien = require('./models/formulirPasien');
-// Menggunakan express.Router() jika Anda berada dalam file terpisah
+
 
 app.post('/saveformulirpasien', async (req, res) => {
     try {
