@@ -1,5 +1,6 @@
 const express = require ('express')
 const ejsMate = require('ejs-mate')
+require('dotenv').config();
 const path = require('path')
 const mongoose = require('mongoose')
 const app = express()
@@ -10,14 +11,28 @@ const formulirPasien = require ('./models/formulirPasien')
 const kartuBerobat = require('./models/kartuBerobat')
 
 // setup databases
-const PORT = 3000;
-const databases = "SIM_RS"
-mongoose.connect(`mongodb://127.0.0.1/${databases}`)
-.then((result)=>{
-    console.log(`Connected to Mongodb(${databases})`)
-}).catch((err)=>{
-    console.log(err)
-})
+// const PORT = 3000;
+// const databases = "SIM_RS"
+// mongoose.connect(`mongodb://127.0.0.1/${databases}`)
+// .then((result)=>{
+//     console.log(`Connected to Mongodb(${databases})`)
+// }).catch((err)=>{
+//     console.log(err)
+// })
+
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log(`MongoDB Connected`);
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1);
+    }
+};
+connectDB();
 
 app.engine('ejs',ejsMate)
 app.set('view engine','ejs');
@@ -110,6 +125,11 @@ app.get('/kartuberobat/cetak', (req,res)=>{
     res.render('print/printKartuBerobat')
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on http://127.0.0.1:${PORT}`)
-})
+// app.listen(PORT,()=>{
+//     console.log(`Server is running on http://127.0.0.1:${PORT}`)
+// })
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Listening On Port ${PORT}`);
+});
