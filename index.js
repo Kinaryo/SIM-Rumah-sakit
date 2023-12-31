@@ -73,9 +73,9 @@ app.post('/saveformulirpasien', async (req, res) => {
     const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
 
     try {
-        const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+        const kodeRegistrasiKartu = await kartuBerobat.findOne({kodeRegistrasi});
 
-        if (kodeRegistrasiKartu) {
+        if (kodeRegistrasiKartu == kodeRegistrasiInput) {
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
