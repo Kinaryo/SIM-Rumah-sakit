@@ -69,13 +69,18 @@ app.get('/formulirpasien',(req,res)=>{
     res.render('admin/pendaftaran/formulirpasien')
 })
 
+const kartuBerobat = require('./models/kartuBerobat');
+const formulirPasien = require('./models/formulirPasien');
+// Menggunakan express.Router() jika Anda berada dalam file terpisah
+
 app.post('/saveformulirpasien', async (req, res) => {
-    const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
-
     try {
-        const kodeRegistrasiKartu = await kartuBerobat.findOne({kodeRegistrasi});
+        const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
 
-        if (kodeRegistrasiKartu == kodeRegistrasiInput) {
+        // Menggunakan await untuk mendapatkan data kartuBerobat
+        const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+
+        if (kodeRegistrasiKartu) {  // Perbaikan: Memeriksa apakah data ditemukan
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
@@ -89,6 +94,7 @@ app.post('/saveformulirpasien', async (req, res) => {
         res.status(500).send('Terjadi kesalahan saat menyimpan data.');
     }
 });
+
 
 
 
