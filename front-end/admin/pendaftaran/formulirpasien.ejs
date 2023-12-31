@@ -1,47 +1,90 @@
 <% layout('/layouts/app') %>
 
 <div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
-    <form action="">
-        <h3 style="text-align: center;"> Form Pendaftaran Pasien</h3>
+    <form id="pendaftaranForm" action="/saveformulirpasien" method="POST">
+        <h3 style="text-align: center;">Form Pendaftaran Pasien</h3>
         
         <div class="mb-1">
+            <label for="kodeRegistrasiKartu" class="form-label"> No.Registrasi Kartu berobat</label>
+            <input type="text" name="kodeRegistrasiKartu" class="form-control sm" id="kodeRegistrasiKartu" placeholder="">
+        </div>
+
+        <div class="mb-1">
             <label for="nama" class="form-label">Nama</label>
-            <input type="text" name="nama" class="form-control sm id="nama" placeholder="">
+            <input type="text" name="formulirPasien[nama]" class="form-control sm" id="nama" placeholder="">
         </div>
 
         <div class="mb-1">
             <label for="nik" class="form-label">NIK</label>
-            <input type="number" name="nik" class="form-control" id="nik" placeholder="">
+            <input type="number" name="formulirPasien[nik]" class="form-control" id="nik" placeholder="">
         </div>
 
         <div class="mb-1">
-            <label for="nomorRujukan" class="form-label">Nomor Rujukan</label>
-            <input type="number" name="nik" class="form-control" id="nomorRujukan" placeholder="">
+            <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
+            <input type="text" name="formulirPasien[jenisKelamin]" class="form-control" id="jenisKelamin" placeholder="">
         </div>
 
+        <div>
+            <label for="asuransi" class="form-label">asuransi</label>
+            <input type="text" name="formulirPasien[asuransi]" class="form-control" id="asuransi" placeholder="">
+        </div>
+        
         <div class="mb-1">
-            <label for="noTelpon" class="form-label">No. Telpon</label>
-            <input type="number" name="noTelpon" class="form-control" id="noTelpon" placeholder="">
-        </div>
-
-        <div class="mb-1">
-            <label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
-            <input type="tanggalMasuk" name="tanggalMasuk" class="form-control" id="tanggalMasuk" placeholder="">
-        </div>
-
-        <select class="form-select mb-1 mt-3" aria-label="Default select example">
-            <option selected>Pilih Poli</option>
+        <label for="poli" class="form-label">Poli</label>
+        <select id="poli" name="formulirPasien[poli]" class="form-select" aria-label="Default select example">
+            <option selected disabled>Pilih Poli</option>
             <option value="poliGigi">Poli Gigi</option>
             <option value="poliMata">Poli Mata</option>
             <option value="PoliTHT">PoliTHT</option>
             <option value="UGD">UGD</option>
             <option value="rawatInap">Rawat Inap</option>
-          </select>
+        </select>
+    </div>
+
+    <div class="mb-1">
+        <label for="ruangan" class="form-label">Ruangan</label>
+        <select class="form-select" aria-label="Default select example" id="ruangan" name="formulirPasien[ruangan]">
+            <option selected>Pilih Ruangan</option>
+            <option value="mawar">Mawar</option>
+            <option value="melati">Melati</option>
+            <option value="kamboja">Kamboja</option>
+        </select>
+        </div>
+        <div class="mb-1">
+            <label for="keterangan" class="form-label">Keterangan</label>
+            <input type="text" name="formulirPasien[keterangan]" class="form-control" id="keterangan">
+        </div>
 
         <div class="mb-1">
-            <label for="alamatSaatIni" class="form-label">Alamat Saat Ini</label>
-            <textarea type="alamatSaatIni" name="alamatSaatIni" id="alamatSaatIni" class="form-control"></textarea>
+            <label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
+            <input type="tanggalMasuk" name="formulirPasien[tanggalMasuk]" class="form-control" id="tanggalMasuk" placeholder="">
         </div>
+
+
+
+        <div class="mb-1">
+            <label for="tanggalLahir" class="form-label">Tanggal Lahir </label>
+            <input type="date" name="formulirPasien[tanggalLahir]" class="form-control" id="tanggalLahir" placeholder="">
+        </div>
+        <div>
+            <label for="umur" class="form-label">Umur</label>
+            <input type="number" name="formulirPasien[umur]" class="form-control" id="form-control" placeholder="">
+        </div>
+
+        <div class="mb-1">
+            <label for="noTelpon" class="form-label">No. Telpon</label>
+            <input type="number" name="formulirPasien[noTelpon]" class="form-control" id="noTelpon" placeholder="">
+        </div>
+        <div class="mb-1">
+            <label for="nomorRujukan" class="form-label">Nomor Rujukan</label>
+            <input type="number" name="formulirPasien[nomorRujukan]" class="form-control" id="nomorRujukan" placeholder="">
+        </div>  
+        <div class="mb-1">
+            <label for="alamatSaatIni" class="form-label">Alamat Saat Ini</label>
+            <textarea type="alamatSaatIni" name="formulirPasien[alamatSaatIni]" id="alamatSaatIni" class="form-control"></textarea>
+        </div>
+
+
 
 
         <div>

@@ -42,12 +42,13 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({extended:true}))
 
 
-app.get('/', (req,res)=>{
+app.get('/',(req,res)=>{
+    res.render('admin/dasboard')
+})
+app.get('/formulirpasien', (req,res)=>{
     res.render('admin/pendaftaran/formulirpasien')
 })
-
-
-//  admin
+//  admin (kartuberobat)
 app.get('/kartuberobat',(req,res)=>{
     res.render('admin/pendaftaran/kartuberobat')
 })
@@ -55,13 +56,43 @@ app.post('/saveKartuBerobat', async (req, res) => {
     const savekartuBerobat = kartuBerobat(req.body.kartuBerobat);
     await savekartuBerobat.save();
     console.log(savekartuBerobat);
-
-    // Pass the data to the template
     res.render('print/printKartuBerobat', { saveKartuBerobat: savekartuBerobat });
 });
+
+// print
+app.get('/kartuberobat/cetak', (req,res)=>{
+    res.render('print/printKartuBerobat')
+})
+
+// admin(formulirpasien)
 app.get('/formulirpasien',(req,res)=>{
     res.render('admin/pendaftaran/formulirpasien')
 })
+
+app.post('/saveformulirpasien', async (req, res) => {
+    const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
+    const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+
+    try {
+        if (kodeRegistrasiInput === kodeRegistrasiKartu.kodeRegistrasi) {
+            const pasien = new formulirPasien(req.body.formulirPasien);
+            pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
+            await pasien.save();
+            console.log(pasien);
+            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan saat menyimpan data.');
+    }
+});
+
+
+app.get('/saveformulirpasien/cetak', (req,res)=>{
+    res.render('print/printPendaftaranPasien')
+})
+
+
 app.get('/daftarpasien',(req,res)=>{
     res.render('admin/daftarpasien')
 })
@@ -120,10 +151,7 @@ app.get('/rawatinap/pasien/control', (req,res)=>{
     res.render('rawatinap/control')
 })
 
-// print
-app.get('/kartuberobat/cetak', (req,res)=>{
-    res.render('print/printKartuBerobat')
-})
+
 
 // app.listen(PORT,()=>{
 //     console.log(`Server is running on http://127.0.0.1:${PORT}`)
@@ -131,5 +159,5 @@ app.get('/kartuberobat/cetak', (req,res)=>{
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Listening On Port ${PORT}`);
+    console.log(`Listening On Port http://127.0.0.1:${PORT}`);
 });

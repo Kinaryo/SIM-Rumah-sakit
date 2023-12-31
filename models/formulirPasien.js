@@ -8,21 +8,45 @@ const  formulirPasienSchema = new Schema({
     nik : {
         type: Number,
     },
-    noTelpon :{
-        type: Number,
+    jenisKelamin:{
+        type: String,
     },
-    alamat:{
+    asuransi:{
+        type: String,
+    },
+    poli:{
+        type:String,
+    },
+    ruangan:{
+        type: String,
+    },
+    keterangan:{
         type: String,
     },
     tanggalMasuk:{
         type: Date,
     },
-    poli:{
-        type: String,
+
+    tanggalLahir:{
+        type: Date,
     },
+    umur:{
+        type: Number,
+    },
+    noTelpon :{
+        type: Number,
+    },    
     nomorRujukan:{
         type: Number
+    },
+    alamatSaatIni:{
+        type: String,
+    },
+    kodeRegistrasi:{
+        type:Schema.Types.ObjectId,
+        ref:'KartuBerobat'
     }
+
 
 })
 
