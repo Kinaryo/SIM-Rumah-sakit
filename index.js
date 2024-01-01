@@ -75,10 +75,9 @@ app.post('/saveformulirpasien', async (req, res) => {
     try {
         const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
 
-        // Menggunakan await untuk mendapatkan data kartuBerobat
         const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
 
-        if (kodeRegistrasiKartu) {  // Perbaikan: Memeriksa apakah data ditemukan
+        if (kodeRegistrasiKartu) {
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
@@ -92,6 +91,7 @@ app.post('/saveformulirpasien', async (req, res) => {
         res.status(500).send('Terjadi kesalahan saat menyimpan data.');
     }
 });
+
 
 
 

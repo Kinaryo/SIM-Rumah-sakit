@@ -44,7 +44,7 @@ const  formulirPasienSchema = new Schema({
     },
     kodeRegistrasi:{
         type:Schema.Types.ObjectId,
-        ref:'KartuBerobat'
+        ref:'kartuBerobat'
     }
 
 
