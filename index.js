@@ -76,13 +76,16 @@ app.post('/saveformulirpasien', async (req, res) => {
         const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
 
         const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+        console.log("Kode Registrasi Input:", kodeRegistrasiInput);
 
         if (kodeRegistrasiKartu) {
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
             console.log(pasien);
-            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien });
+            
+            // Pesan berhasil ditambahkan di sini
+            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien, successMessage: 'Data berhasil disimpan.' });
         } else {
             res.status(404).send('Data kartuBerobat tidak ditemukan.');
         }
