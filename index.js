@@ -12,7 +12,7 @@ const kartuBerobat = require('./models/kartuBerobat')
 
 // setup databases
 // const PORT = 3000;
-// const databases = "SIM_RS"
+// const databases = "Data"
 // mongoose.connect(`mongodb://127.0.0.1/${databases}`)
 // .then((result)=>{
 //     console.log(`Connected to Mongodb(${databases})`)
@@ -102,20 +102,20 @@ app.post('/saveformulirpasien', async (req, res) => {
     }
 });
 
-
-
-
-
-
-
 app.get('/saveformulirpasien/cetak', (req,res)=>{
     res.render('print/printPendaftaranPasien')
 })
 
+// daftar pasien 
+app.get('/daftarpasien', async (req,res)=>{
 
-app.get('/daftarpasien',(req,res)=>{
-    res.render('admin/daftarpasien')
+    const pasiens = await formulirPasien.find()
+    res.render('admin/daftarpasien' , {pasiens})
 })
+
+
+
+
 app.get('/daftarkunjungan',(req,res)=>{
     res.render('admin/daftarkunjungan')
 })

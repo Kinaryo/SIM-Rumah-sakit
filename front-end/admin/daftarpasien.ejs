@@ -32,6 +32,10 @@
         .image a img {
             max-width: 25px;
         }
+        table tr th {
+            text-align: center;
+            justify-content: center;
+        }
 
     </style>
 <div style="margin-top: 125px;">
@@ -39,35 +43,43 @@
 
 <h2 style="text-align: center;">Daftar Pasien</h2>
 
-<table >
+<table>
     <tr>
         <th>No</th>
+        <th>No.Pendaftaran</th>
         <th>Nama</th>
         <th>NIK</th>
-        <th>Jenis Kelamin</th>
+        <th>Jenis <br> Kelamin</th>
         <th>Asuransi</th>
-        <th>Keterangan</th>
+        <th>Poli</th>
         <th>Ruangan</th>
-        <th>Tanggal Masuk</th>
-        <th>Tanggal Keluar</th>
+        <th>Tanggal<br>Masuk</th>
+        <th>Tanggal<br>Keluar</th>
+        <th>Keterangan</th>
         <th>Aksi</th>
-        
     </tr>
-    <tr>
-        <td>1</td>
-        <td>John Doe</td>
-        <td>1234567890</td>
-        <td>01/01/1990</td>
-        <td>01/01/2022</td>
-        <td>Poli Umum</td>
-        <td>01/01/1990</td>
-        <td>01/01/2022</td>
-        <td>Poli Umum</td>
-        <td>
-            <div class="image">
-            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
-            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>    
-             </div>
-          </td>
-    </tr>
-</div>
+    <% for (let index = 0; index < pasiens.length; index++) { %>
+        <tr>
+            <td><%= index + 1 %></td>
+            <td><%= pasiens[index].noPendaftaran %></td>
+            <td style="min-width: 200px;"><%= pasiens[index].nama %></td>
+            <td><%= pasiens[index].nik %></td>
+            <td><%= pasiens[index].jenisKelamin %></td>
+            <td><%= pasiens[index].asuransi %></td>
+            <td><%= pasiens[index].poli %></td>
+            <td><%= pasiens[index].ruangan%></td>
+            <td><%= pasiens[index].getMonthYearDateMasuk() %></td>
+            <td><%= pasiens[index].tanggalKeluar %></td>
+            <td><%= pasiens[index].keterangan %></td>
+
+
+            <!-- Isilah kolom-kolom lain sesuai dengan properti pasien yang sesuai -->
+            <td>
+                <div class="image">
+                    <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
+                    <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                </div>
+            </td>
+        </tr>
+    <% } %>
+</table>
