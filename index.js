@@ -9,30 +9,30 @@ const app = express()
 
 const formulirPasien = require ('./models/formulirPasien')
 const kartuBerobat = require('./models/kartuBerobat')
-
+const BPJS = require('./models/asuransi/bpjs')
 // setup databases
-// const PORT = 3000;
-// const databases = "Data"
-// mongoose.connect(`mongodb://127.0.0.1/${databases}`)
-// .then((result)=>{
-//     console.log(`Connected to Mongodb(${databases})`)
-// }).catch((err)=>{
-//     console.log(err)
-// })
+const PORT = 3000;
+const databases = "Data"
+mongoose.connect(`mongodb://127.0.0.1/${databases}`)
+.then((result)=>{
+    console.log(`Connected to Mongodb(${databases})`)
+}).catch((err)=>{
+    console.log(err)
+})
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log(`MongoDB Connected`);
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error.message);
-        process.exit(1);
-    }
-};
-connectDB();
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_URI, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         });
+//         console.log(`MongoDB Connected`);
+//     } catch (error) {
+//         console.error('Error connecting to MongoDB:', error.message);
+//         process.exit(1);
+//     }
+// };
+// connectDB();
 
 app.engine('ejs',ejsMate)
 app.set('view engine','ejs');
@@ -70,37 +70,54 @@ app.get('/formulirpasien',(req,res)=>{
 })
 
 
-
-
-
-
 app.post('/saveformulirpasien', async (req, res) => {
     try {
         const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
         const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
 
         if (kodeRegistrasiKartu) {
-            const pasien = new formulirPasien(req.body.formulirPasien);
+            const pasienData = req.body.formulirPasien;
+
+            // Ensure that 'asuransi' is a string, not an array
+            if (Array.isArray(pasienData.asuransi)) {
+                pasienData.asuransi = pasienData.asuransi[0];
+            }
+
+            const pasien = new formulirPasien(pasienData);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
 
-            const tanggalFormattedMasuk = getMonthYearDateMasuk(pasien.tanggalMasuk);
-            const tanggalFormattedLahir = getMonthYearDateLahir(pasien.tanggalLahir);
+            if (pasien.asuransi === 'BPJS') {
+                const bpjsData = new BPJS({
+                    asuransi: pasien._id,
+                });
+                await bpjsData.save();
+            }
+
+            // Log BPJS data
+            const tanggalFormattedMasuk = pasien.getMonthYearDateMasuk();
+            const tanggalFormattedLahir = pasien.getMonthYearDateLahir();
 
             console.log("Data Pasien:", pasien);
             console.log("Kode Registrasi Pasien:", pasien.kodeRegistrasi);
 
-           
-            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien, kodeRegistrasiKartu, tanggalFormattedMasuk, tanggalFormattedLahir, successMessage: 'Data berhasil disimpan.' });
+            res.render('print/printPendaftaranPasien', {
+                saveDataPasien: pasien,
+                kodeRegistrasiKartu,
+                tanggalFormattedMasuk,
+                tanggalFormattedLahir,
+                successMessage: 'Data berhasil disimpan.',
+            });
         } else {
             res.status(404).send('Data kartuBerobat tidak ditemukan.');
         }
     } catch (error) {
         console.error(error);
-
         res.status(500).send('Terjadi kesalahan saat mengambil atau menyimpan data.');
     }
 });
+
+
 
 app.get('/saveformulirpasien/cetak', (req,res)=>{
     res.render('print/printPendaftaranPasien')
@@ -108,20 +125,24 @@ app.get('/saveformulirpasien/cetak', (req,res)=>{
 
 // daftar pasien 
 app.get('/daftarpasien', async (req,res)=>{
-
     const pasiens = await formulirPasien.find()
     res.render('admin/daftarpasien' , {pasiens})
 })
 
-
-
-
 app.get('/daftarkunjungan',(req,res)=>{
     res.render('admin/daftarkunjungan')
 })
-app.get('/asuransi',(req,res)=>{
-    res.render('admin/asuransi')
-})
+app.get('/asuransi', async (req, res) => {
+    try {
+        const bpjs = await BPJS.find().populate('asuransi');
+        console.log(bpjs);
+        res.render('admin/asuransi', { bpjs });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan saat mengambil data BPJS.');
+    }
+});
+
 // laporan
 app.get('/laporan/harian',(req,res)=>{
     res.render('rawatInap/laporan/harian')
@@ -140,9 +161,22 @@ app.get('/laporan/bulanan',(req,res)=>{
 
 
 // Perawat
-app.get('/rawatinap/pasien',(req,res)=>{
-    res.render('rawatInap/daftarPasien')
-})
+app.get('/rawatinap/pasien', async (req, res) => {
+    try {
+        const pasienRawatInap = await formulirPasien.find({ poli: 'Rawat Inap' });
+        console.log(pasienRawatInap)
+        if (pasienRawatInap.length > 0) {
+            res.render('rawatInap/daftarPasien', { pasienRawatInap });
+        } else {
+            res.render('rawatInap/daftarPasien', { pasienRawatInap: null });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Terjadi kesalahan dalam mengambil data pasien rawat inap');
+    }
+});
+
+
 //laporan perawat
 app.get('/rawatinap/laporan/harian',(req,res)=>{
     res.render('rawatInap/laporan/harian')
@@ -173,32 +207,32 @@ app.get('/rawatinap/pasien/control', (req,res)=>{
 
 
 
-// app.listen(PORT,()=>{
-//     console.log(`Server is running on http://127.0.0.1:${PORT}`)
-// })
+app.listen(PORT,()=>{
+    console.log(`Server is running on http://127.0.0.1:${PORT}`)
+})
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Listening On Port http://127.0.0.1:${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Listening On Port http://127.0.0.1:${PORT}`);
+// });
 
 
 
-const getMonthYearDateMasuk = function(tanggalMasuk) {
-    if (tanggalMasuk) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(tanggalMasuk).toLocaleDateString('id-ID', options);
-    } else {
-        return 'Tanggal Masuk Tidak Tersedia';
-    }
-};
+// const getMonthYearDateMasuk = function(tanggalMasuk) {
+//     if (tanggalMasuk) {
+//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
+//         return new Date(tanggalMasuk).toLocaleDateString('id-ID', options);
+//     } else {
+//         return 'Tanggal Masuk Tidak Tersedia';
+//     }
+// };
 
-const getMonthYearDateLahir = function(tanggalLahir) {
-    if(tanggalLahir) {
-        const options = { year: 'numeric', month: 'long', day : 'numeric'};
-        return new Date(tanggalLahir).toLocaleDateString('id-ID', options);
-    }return "Tanggal Lahir Tidak Tersedia"
-}
+// const getMonthYearDateLahir = function(tanggalLahir) {
+//     if(tanggalLahir) {
+//         const options = { year: 'numeric', month: 'long', day : 'numeric'};
+//         return new Date(tanggalLahir).toLocaleDateString('id-ID', options);
+//     }return "Tanggal Lahir Tidak Tersedia"
+// }
 
 
 

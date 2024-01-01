@@ -1,73 +1,84 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const  formulirPasienSchema = new Schema({
-    nama : {
-        type : String,
-    },
-    noPendaftaran:{
+const formulirPasienSchema = new Schema({
+    nama: {
         type: String,
     },
-    nik : {
+    noPendaftaran: {
+        type: String,
+    },
+    nik: {
         type: Number,
     },
-    jenisKelamin:{
+    jenisKelamin: {
         type: String,
     },
-    asuransi:{
+    asuransi: {
         type: String,
     },
-    poli:{
-        type:String,
+    noAsuransi: {
+        type: Number,
     },
-    ruangan:{
+    poli: {
         type: String,
     },
-    keterangan:{
+    ruangan: {
         type: String,
     },
-    tanggalMasuk:{
+    keterangan: {
+        type: String,
+    },
+    tanggalMasuk: {
         type: Date,
     },
-
-    tanggalLahir:{
+    tanggalLahir: {
         type: Date,
     },
-    tanggalKeluar:{
+    tanggalKeluar: {
         type: String,
         default: '-'
-
     },
-    umur:{
+    umur: {
         type: Number,
     },
-    noTelpon :{
+    noTelpon: {
         type: Number,
-    },    
-    nomorRujukan:{
-        type: Number
     },
-    alamatSaatIni:{
+    nomorRujukan: {
+        type: Number,
+    },
+    alamatSaatIni: {
         type: String,
     },
-    kodeRegistrasi:{
-        type:Schema.Types.ObjectId,
-        ref:'kartuBerobat'
-    }
-
-
-})
-
+    kodeRegistrasi: {
+        type: Schema.Types.ObjectId,
+        ref: 'kartuBerobat'
+    },
+    // asuransiSelect: {
+    //     type: String, // Sesuaikan dengan tipe data yang diharapkan
+    // },
+    // asuransiLainnya: {
+    //     type: String, // Sesuaikan dengan tipe data yang diharapkan
+    // },
+});
 
 formulirPasienSchema.methods.getMonthYearDateMasuk = function () {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return this.tanggalMasuk.toLocaleDateString('id-ID', options);
+    if (this.tanggalMasuk) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return this.tanggalMasuk.toLocaleDateString('id-ID', options);
+    }
+    return "Tanggal Masuk Tidak Tersedia";
 };
+
 
 formulirPasienSchema.methods.getMonthYearDateLahir = function () {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return this.tanggalLahir.toLocaleDateString('id-ID', options);
+    if (this.tanggalLahir) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return this.tanggalLahir.toLocaleDateString('id-ID', options);
+    }
+    return "Tanggal Lahir Tidak Tersedia";
 };
 
 
-module.exports = mongoose.model ('formulirPasien', formulirPasienSchema)
+module.exports = mongoose.model('formulirPasien', formulirPasienSchema);

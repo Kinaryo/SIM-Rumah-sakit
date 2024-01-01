@@ -31,21 +31,57 @@
             <input type="text" name="formulirPasien[jenisKelamin]" class="form-control" id="jenisKelamin" placeholder="">
         </div>
         
-
-        <div>
-            <label for="asuransi" class="form-label">asuransi</label>
-            <input type="text" name="formulirPasien[asuransi]" class="form-control" id="asuransi" placeholder="">
+        <hr>
+        <div class="mb-1">
+            <label for="asuransiSelect" class="form-label">Asuransi</label>
+            <select name="formulirPasien[asuransi]" id="asuransiSelect" class="form-select" aria-label="Default select example">
+                <option selected disabled>Pilih Asuransi</option>
+                <option value="Tidak Ada">Tidak Ada</option>
+                <option value="BPJS">BPJS</option>
+                <option value="Jiwasraya">Jiwasraya</option>
+                <option value="KPS">Kartu Papua Sehat</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+            
+            <div id="lainnyaContainer" style="display: none;">
+                <label for="asuransiLainnya" class="form-label">Masukkan Asuransi Lainnya</label>
+                <input type="text" name="formulirPasien[asuransi]" id="asuransiLainnya" class="form-control" aria-label="Default input example">
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const asuransiSelect = document.getElementById('asuransiSelect');
+                    const lainnyaContainer = document.getElementById('lainnyaContainer');
+            
+                    asuransiSelect.addEventListener('change', function () {
+                        if (asuransiSelect.value === 'Lainnya') {
+                            lainnyaContainer.style.display = 'block';
+                        } else {
+                            lainnyaContainer.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
         </div>
         
+        <div class="mb-1">
+            <label for="noAsuransi">No. Asuransi</label>
+            <div class="input-group mb-1">
+                <input type="text" name="formulirPasien[noAsuransi]" class="form-control" id="noAsuransi" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <span class="input-group-text bg-warning bg-opacity-75" id="basic-addon2"><button class="bg-transparent" style="border: none;">Cek</button></span>
+              </div>
+        </div>
+
+        <hr>
         <div class="mb-1">
         <label for="poli" class="form-label">Poli</label>
         <select id="poli" name="formulirPasien[poli]" class="form-select" aria-label="Default select example">
             <option selected disabled>Pilih Poli</option>
-            <option value="poliGigi">Poli Gigi</option>
-            <option value="poliMata">Poli Mata</option>
-            <option value="PoliTHT">PoliTHT</option>
+            <option value="Poli Gigi">Poli Gigi</option>
+            <option value="Poli Mata">Poli Mata</option>
+            <option value="Poli THT">PoliTHT</option>
             <option value="UGD">UGD</option>
-            <option value="rawatInap">Rawat Inap</option>
+            <option value="Rawat Inap">Rawat Inap</option>
         </select>
     </div>
 
@@ -53,9 +89,9 @@
         <label for="ruangan" class="form-label">Ruangan</label>
         <select class="form-select" aria-label="Default select example" id="ruangan" name="formulirPasien[ruangan]">
             <option selected>Pilih Ruangan</option>
-            <option value="mawar">Mawar</option>
-            <option value="melati">Melati</option>
-            <option value="kamboja">Kamboja</option>
+            <option value="Mawar">Mawar</option>
+            <option value="Melati">Melati</option>
+            <option value="Kamboja">Kamboja</option>
         </select>
         </div>
         <div class="mb-1">

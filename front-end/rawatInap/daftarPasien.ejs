@@ -62,34 +62,47 @@
     <h4 class="">Date: <span>Selasa, 25 Maret 2019</span></h4>
 </div>
 
-<table >
+<table>
     <tr>
         <th>No</th>
+        <th>No.Pendaftaran</th>
         <th>Nama</th>
         <th>NIK</th>
-        <th>Kamar/ <br>No.kasur</th> 
-        <th>Status</th>
-        <th>Keterangan</th> 
-        <th>Tanggal Masuk</th>   
-        <th>Tanggal Keluar</th>   
+        <th>Jenis <br> Kelamin</th>
+        <th>Asuransi</th>
+        <th>Poli</th>
+        <th>Ruangan</th>
+        <th>Tanggal<br>Masuk</th>
+        <th>Tanggal<br>Keluar</th>
+        <th>Keterangan</th>
         <th>Aksi</th>
     </tr>
-    <tr>
-        <td>1</td>
-        <td>Lukman</td>
-        <td>9101190808080007</td>
-        <td>3</td>
-        <td>Belum</td>
-        <td>Habis melahirkan</td>
-        <td>29/09/2019</td>
-        <td>-</td>
+    <% for (let index = 0; index < pasienRawatInap.length; index++) { %>
+        <tr>
+            <td><%= index + 1 %></td>
+            <td><%= pasienRawatInap[index].noPendaftaran %></td>
+            <td style="min-width: 200px;"><%= pasienRawatInap[index].nama %></td>
+            <td><%= pasienRawatInap[index].nik %></td>
+            <td><%= pasienRawatInap[index].jenisKelamin %></td>
+            <td><%= pasienRawatInap[index].asuransi %></td>
+            <td><%= pasienRawatInap[index].poli %></td>
+            <td><%= pasienRawatInap[index].ruangan%></td>
+            <td><%= pasienRawatInap[index].getMonthYearDateMasuk() %></td>
+            <td><%= pasienRawatInap[index].tanggalKeluar %></td>
+            <td><%= pasienRawatInap[index].keterangan %></td>
 
-        <td id="image">
-            <div class="image">
-            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus" ></a>
-            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
-            <a href="/rawatinap/pasien/control"><img id="control" src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702932718/simrs/image-removebg-preview_6_lthg29.png" alt=""></a>   
-             </div>
-          </td>
-    </tr>
+
+            <!-- Isilah kolom-kolom lain sesuai dengan properti pasien yang sesuai -->
+            <td>
+                <div class="image">
+                    <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
+                    <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                </div>
+            </td>
+        </tr>
+    <% } %>
+</table>
 </div>
+
+
+
