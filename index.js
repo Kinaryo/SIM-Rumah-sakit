@@ -11,28 +11,28 @@ const formulirPasien = require ('./models/formulirPasien')
 const kartuBerobat = require('./models/kartuBerobat')
 
 // setup databases
-// const PORT = 3000;
-// const databases = "SIM_RS"
-// mongoose.connect(`mongodb://127.0.0.1/${databases}`)
-// .then((result)=>{
-//     console.log(`Connected to Mongodb(${databases})`)
-// }).catch((err)=>{
-//     console.log(err)
-// })
+const PORT = 3000;
+const databases = "SIM_RS"
+mongoose.connect(`mongodb://127.0.0.1/${databases}`)
+.then((result)=>{
+    console.log(`Connected to Mongodb(${databases})`)
+}).catch((err)=>{
+    console.log(err)
+})
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log(`MongoDB Connected`);
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error.message);
-        process.exit(1);
-    }
-};
-connectDB();
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_URI, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         });
+//         console.log(`MongoDB Connected`);
+//     } catch (error) {
+//         console.error('Error connecting to MongoDB:', error.message);
+//         process.exit(1);
+//     }
+// };
+// connectDB();
 
 app.engine('ejs',ejsMate)
 app.set('view engine','ejs');
@@ -71,29 +71,38 @@ app.get('/formulirpasien',(req,res)=>{
 
 
 
+
+
+
 app.post('/saveformulirpasien', async (req, res) => {
     try {
         const kodeRegistrasiInput = req.body.formulirPasien.kodeRegistrasiKartu;
-
         const kodeRegistrasiKartu = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
-        console.log("Kode Registrasi Input:", kodeRegistrasiInput);
 
         if (kodeRegistrasiKartu) {
             const pasien = new formulirPasien(req.body.formulirPasien);
             pasien.kodeRegistrasi = kodeRegistrasiKartu._id;
             await pasien.save();
-            console.log(pasien);
-            
-            // Pesan berhasil ditambahkan di sini
-            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien, successMessage: 'Data berhasil disimpan.' });
+
+            const tanggalFormattedMasuk = getMonthYearDateMasuk(pasien.tanggalMasuk);
+            const tanggalFormattedLahir = getMonthYearDateLahir(pasien.tanggalLahir);
+
+            console.log("Data Pasien:", pasien);
+            console.log("Kode Registrasi Pasien:", pasien.kodeRegistrasi);
+
+           
+            res.render('print/printPendaftaranPasien', { saveDataPasien: pasien, kodeRegistrasiKartu, tanggalFormattedMasuk, tanggalFormattedLahir, successMessage: 'Data berhasil disimpan.' });
         } else {
             res.status(404).send('Data kartuBerobat tidak ditemukan.');
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Terjadi kesalahan saat menyimpan data.');
+
+        res.status(500).send('Terjadi kesalahan saat mengambil atau menyimpan data.');
     }
 });
+
+
 
 
 
@@ -164,11 +173,55 @@ app.get('/rawatinap/pasien/control', (req,res)=>{
 
 
 
-// app.listen(PORT,()=>{
-//     console.log(`Server is running on http://127.0.0.1:${PORT}`)
-// })
+app.listen(PORT,()=>{
+    console.log(`Server is running on http://127.0.0.1:${PORT}`)
+})
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Listening On Port http://127.0.0.1:${PORT}`);
-});
+
+
+
+
+const getMonthYearDateMasuk = function(tanggalMasuk) {
+    if (tanggalMasuk) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(tanggalMasuk).toLocaleDateString('id-ID', options);
+    } else {
+        return 'Tanggal Masuk Tidak Tersedia';
+    }
+};
+
+const getMonthYearDateLahir = function(tanggalLahir) {
+    if(tanggalLahir) {
+        const options = { year: 'numeric', month: 'long', day : 'numeric'};
+        return new Date(tanggalLahir).toLocaleDateString('id-ID', options);
+    }return "Tanggal Lahir Tidak Tersedia"
+}
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Listening On Port http://127.0.0.1:${PORT}`);
+// });
+
+
+// router.get('/formulirPasienByKartu/:kodeRegistrasiKartu', async (req, res) => {
+//     try {
+//         const kodeRegistrasiInput = req.params.kodeRegistrasiKartu;
+
+//         // Cari kartuBerobat berdasarkan kode registrasi
+//         const kartuBerobatData = await kartuBerobat.findOne({ kodeRegistrasi: kodeRegistrasiInput });
+
+//         if (kartuBerobatData) {
+//             // Ambil formulirPasien yang terkait dengan kartuBerobat dan "populate" kodeRegistrasi
+//             const formulirPasienList = await formulirPasien
+//                 .find({ kodeRegistrasi: kartuBerobatData._id })
+//                 .populate('kodeRegistrasi');  // Populate kartuBerobat
+            
+//             res.json({ formulirPasienList });
+//         } else {
+//             res.status(404).json({ error: 'Data kartuBerobat tidak ditemukan.' });
+//         }
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data.' });
+//     }
+// });

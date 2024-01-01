@@ -10,6 +10,13 @@
         </div>
 
         <div class="mb-1">
+            <label for="noPendaftaran" class="form-label"> No.Registrasi Kartu berobat</label>
+            <input type="text" name="formulirPasien[noPendaftaran]" class="form-control sm" id="noPendaftaran" placeholder="">
+        </div>
+
+        
+        
+        <div class="mb-1">
             <label for="nama" class="form-label">Nama</label>
             <input type="text" name="formulirPasien[nama]" class="form-control sm" id="nama" placeholder="">
         </div>
@@ -94,3 +101,25 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    function generateNomorPendaftaran(){
+        const  tahun = new Date().getFullYear().toString();
+        const  tujuhAngkaAcak = generateRandomNumber(7);
+        const  noPendaftaran = document.getElementById('noPendaftaran');
+        noPendaftaran.value = `${tahun}${tujuhAngkaAcak}`
+    }
+
+    function generateRandomNumber(length) {
+        let result = '';
+                for(let i = 0 ; i<length; i++) {
+        result += Math.floor(Math.random()*10).toString();
+        }
+        return result
+    }
+
+    window.onload = function() {
+        generateNomorPendaftaran();
+    }
+</script>

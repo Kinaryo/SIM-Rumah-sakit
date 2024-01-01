@@ -20,6 +20,19 @@
            
         }
         
+
+
+        function printPendaftaran(areaPendaftaranPasien){
+           let printPage = document.getElementById(areaPendaftaranPasien).innerHTML;
+           let oriPage = document.body.innerHTML;
+           document.body.innerHTML = printPage;
+           window.print();
+           
+           document.body.innerHTML = oriPage;
+           
+        }
+
+        
     </script>
 
 

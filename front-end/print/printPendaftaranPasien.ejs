@@ -1,1 +1,86 @@
-<% layout('layouts/app') %>
+<% layout('/layouts/app') %>
+<div class="container" style="margin-top:150px;">
+<div class="print" id="areaPendaftaranPasien">
+    <div class="card text-center bg-transparent">
+        <div class="card-header bg-transparent d-flex justify-content-between" style="padding-top:15px; border-bottom: 2px solid transparent; ">
+          <div class="logo1" style="margin-left: 30px;">
+            <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996225/simrs/rsud_merauke-modified_nep793.png" style="max-width: 100px;" alt="">
+          </div>
+          <div class="header-head">
+            <h5>KEMENTRIAN KESEHATAN REPUBLIK INDONESIA</h5>
+            <h5>RUMAH SAKIT UMUM DAERAH MERAUKE</h5>
+            <p>jl raya mandala, merauke, Papua Selatan 99616, Indonesia </p>
+            <span class="d-flex justify-content-between" style="width: 800px;">
+                <p>Website : <span>www.rsudMerauke.com</span></p>
+                <p>Email : <span>rsud_merauke@gmail.com</span></p>
+            </span>
+          </div>
+          <div class="logo2" style="margin-right: 30px;">
+            <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996307/simrs/LOGO_KABUPATEN_MERAUKE_iv0bqk.png" style="max-width: 100px;" alt="">
+          </div>
+        </div>
+      <hr  class="border border-black border-2 opacity-100" style="margin-top: -25px; width: 90%; margin-left: auto; margin-right:auto;">
+
+
+        
+        <div class="card-body">
+          <h5 class="card-title">Lembar Pendaftaran Pasien</h5>
+            <div class="row g-2 " style="width: 700px; margin-left: auto; margin-right: auto;">
+                <style>
+                  .row  p{
+                        text-align: left;
+                        /* border: 1px solid black; */
+                        margin-bottom: 2px;
+                    }
+                </style>
+                <div class="col-sm-6 col-md-4 text-left bg-body-secondary">
+                    <p>No.Registrasi Kartu Berobat</p>
+                    <p>No.Pendaftaran</p>
+                    <p>Nama</p>
+                    <p>NIK</p>
+                    <p>Asuransi</p>
+                    <p>Jenis Kelamin</p>
+                    <p>Poli</p>
+                    <p>Ruangan</p>
+                    <p>Keterangan</p>
+                    <p>Tanggal Masuk</p>
+                    <p>Tanggal Lahir</p>
+                    <p>Umur</p>
+                    <p>No. Telpon</p>
+                    <p>No. Rujukan</p>
+                    <p>Alamat Saat Ini</p>
+                    
+
+                </div>
+                <div class="col-6 col-md-8 bg-success-subtle">
+                    <p> : <%= kodeRegistrasiKartu.kodeRegistrasi %></p>
+                    <p> : <%= saveDataPasien.noPendaftaran %></p>
+                    <p> : <%= saveDataPasien.nama %></p>
+                    <p> : <%= saveDataPasien.nik %></p>
+                    <p> : <%= saveDataPasien.asuransi %></p>
+                    <p> : <%= saveDataPasien.jenisKelamin %></p>
+                    <p> : <%= saveDataPasien.poli %></p>
+                    <p> : <%= saveDataPasien.ruangan %></p>
+                    <p> : <%= saveDataPasien.keterangan %></p>
+                    <p> : <%= tanggalFormattedMasuk  %></p>
+                    <p> : <%= tanggalFormattedLahir %></p>
+                    <p> : <%= saveDataPasien.umur %></p>
+                    <p> : <%= saveDataPasien.noTelpon %></p>
+                    <p> : <%= saveDataPasien.nomorRujukan%></p>
+                    <p> : <%= saveDataPasien.alamatSaatIni %></p>
+
+
+                </div>
+            </div>
+          
+        </div>
+        <div class="card-footer text-body-secondary" style="color: black; ">
+          2 days ago
+        </div>
+      </div>
+</div>
+
+<button class="btn btn-primary mt-3 mb-3" onclick="return printKartuBerobat('areaPendaftaranPasien')">Print</button>
+  <a href="formulirpasien"><button class="btn btn-danger mt-3 mb-3 ">Batal</button></a>
+  
+</div>

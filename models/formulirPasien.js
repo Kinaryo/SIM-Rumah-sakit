@@ -5,6 +5,9 @@ const  formulirPasienSchema = new Schema({
     nama : {
         type : String,
     },
+    noPendaftaran:{
+        type: String,
+    },
     nik : {
         type: Number,
     },
@@ -49,6 +52,19 @@ const  formulirPasienSchema = new Schema({
 
 
 })
+
+
+formulirPasienSchema.methods.getMonthYearDateMasuk = function() {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return this.tanggalMasuk.toLocaleDateString('en-US', options);
+};
+
+// Metode untuk mendapatkan tanggal lahir dalam format yang diinginkan
+formulirPasienSchema.methods.getMonthYearDateLahir = function() {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return this.tanggalLahir.toLocaleDateString('en-US', options);
+};
+
 
 
 module.exports = mongoose.model ('formulirPasien', formulirPasienSchema)
