@@ -1,0 +1,176 @@
+<% layout('/layouts/app') %>
+<style>
+    p {
+        margin: 0px;
+        font-size: 1.2rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    h4 {
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .data-output {
+        padding: 3px;
+        padding-left: 10px;
+    }
+
+    .input-data .row {
+        margin-top: 0.5px;
+    }
+
+    hr {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid black;
+    }
+
+    .data-rawat-inap {
+        margin-right: 2px;
+    }
+</style>
+<div class="container bg-body-secondary" style="margin-top: 175px;">
+
+    <div class="card">
+        <!-- Formulir Pencarian -->
+        <form id="formPencarian" action="" method="GET">
+            <label for="nomorPendaftaran">Nomor Pendaftaran:</label>
+            <input type="text" id="nomorPendaftaran" name="nomorPendaftaran" required>
+            <button type="submit">Cari</button>
+        </form>
+
+        <!-- Script JavaScript -->
+    </div>
+
+    <div class="d-flex justify-content-around" style="padding: 15px;">
+        <div class="data data-pribadi bg-success-subtle col-sm-6 col-md-5">
+            <h4>Data Pribadi Pasien</h4>
+            <hr class="opacity-100">
+            <div class="row data-output">
+                <div class="col-md-4">
+
+                    <p>No. Pendaftaran</p>
+                    <p>Nama</p>
+                    <p>Jenis Kelamin</p>
+                    <p>Tanggal Masuk</p>
+                    <p>Ruangan</p>
+
+                </div>
+
+                <div class="col-md-6" id="hasilPencarian">
+                </div>
+            </div>
+        </div>
+
+        <form action="/isiDataPasienRawatInap/save" method="POST"class="col-md-5 col-sm-8">
+            <div class="data-rawat-inap bg-warning-subtle  " style="padding: 5px 15px;">
+                <h4>Data yang harus diisi</h4>
+                <hr class="opacity-100">
+                <div class="row data">
+
+                    <div class="input-data">
+
+                      <div class="col-8" id="idElement">
+                       
+                    </div>
+                
+                    
+                      <div class="row g-3 align-items-center">
+                        <div class="col-3">
+                            <label for="noKasur" class="col-form-label">Nomor Kasur</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" id="noKasur" name="pasienRawatInap[noKasur]" class="form-control"
+                                aria-describedby="passwordHelpInline" placeholder="Masukan nomor kasur pasien">
+                        </div>
+                    </div>
+
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="jalurMasuk" class="col-form-label">Jalur Masuk</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="jalurMasuk" name="pasienRawatInap[jalurMasuk]"
+                                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="diagnosa" class="col-form-label">Diagnosa</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="diagnosa" name="pasienRawatInap[diagnosa]" class="form-control"
+                                    aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="keterangan" class="col-form-label">Keterangan</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="keterangan" name="pasienRawatInap[keterangan]"
+                                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3 align-items-center">
+                            <div class="col-3">
+                                <label for="status" class="col-form-label">Status</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="status" name="pasienRawatInap[status]" class="form-control"
+                                    aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end" style="margin-right: 2px;">
+                <button type="submit" class="btn btn-success mt-3" style="margin-right: 3px;">Simpan</button>
+                <a href="/pages/kartuberobat"><button type="button" class="btn btn-danger mt-3">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formPencarian = document.getElementById('formPencarian');
+        const hasilPencarian = document.getElementById('hasilPencarian');
+        const idElement = document.getElementById('idElement')
+
+        formPencarian.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const nomorPendaftaran = document.getElementById('nomorPendaftaran').value;
+
+            // Lakukan AJAX request untuk mencari pasien
+            fetch(`/cari-pasien?noPendaftaran=${nomorPendaftaran}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Tampilkan hasil pencarian
+                    if (data.error) {
+                        hasilPencarian.innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        hasilPencarian.innerHTML = `<p>: ${data.noPendaftaran}</p>
+                                                  <p>: ${data.pasienRawatInap.nama}</p>
+                                                  <p>: ${data.pasienRawatInap.jenisKelamin}</p>
+                                                  <p>: ${data.pasienRawatInap.tanggalMasuk}</p>
+                                                  <p>: ${data.pasienRawatInap.ruangan}</p>`;
+                       idElement.innerHTML = `<input type="string" id="formulirId" name="pasienRawatInap[formulirId]" class="form-control" aria-describedby="passwordHelpInline" placeholder="id" value="${data.pasienRawatInap._id}">`;
+
+
+
+                       
+
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
