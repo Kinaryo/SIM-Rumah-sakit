@@ -1,33 +1,108 @@
 <% layout('/layouts/app') %>
 <style>
-    /* Your existing styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+    }
+    h2 {
+        color: #333;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px 7px;
+        font-size: 13px;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #e9e3e3;
+    }
+    tr:hover {
+        background-color: #1584de;
+    }
+
+    .image a img {
+        max-width: 25px;
+    }
+    table tr th {
+        text-align: center;
+        justify-content: center;
+    }
+
 </style>
 <div style="margin-top: 125px;">
     <h2 style="text-align: center;">Daftar Pasien Rawat Inap</h2>
     <div class="tanggal">
-        <h4 class="">Date: <span>Selasa, 25 Maret 2019</span></h4>
+        <h4 class=""></h4>
     </div>
     <table>
         <thead>
             <tr>
-                <th>No Pendaftaran</th>
-                <!-- Add additional headers based on your data model -->
+                <th >No</th>
+                <th>No.Pendaftaran</th>
+                <th>Nama</th>
+                <th>Jenis <br> Kelamin</th>
+                <th>Asuransi</th>
+                <th>Jalur<br> Masuk</th>
+                <th>Ruangan/ <br> Kamar</th>
+                <th>No. <br>Kasur</th>
+                <th>Tanggal<br>Masuk <br> Rawat Inap</th>
+                <th>W2</th>
+                <th>Diagnosa</th>
+                <th>Keterangan</th>
+                <th>Status</th>
+                <th>Aksi</th>
             </tr>
+       
+       
+       
+       
         </thead>
-        <tbody><% pasienRawatInap.forEach(pasien => { %>
-            <tr>
-                <% if (pasien.noPendaftaran && pasien.noPendaftaran.nama) { %>
-                    <td><%= pasien.noPendaftaran.nama %></td>
-                    <td><%= pasien.diagnosa %></td>
-                    <!-- Add additional cells based on your data model -->
-                <% } else { %>
-                    <td>Data Tidak Tersedia</td>
-                    <td>Data Tidak Tersedia</td>
-                    <!-- Add additional cells based on your data model -->
+
+        <tbody>
+            <% for (let index = 0; index < pasienRawatInap.length; index++){ %>
+                <tr>
+                    <td style="text-align: center;"><%= index + 1  %></td>
+                    <td><%= pasienRawatInap[index].noPendaftaran.noPendaftaran %></td>
+                    <td><%= pasienRawatInap[index].noPendaftaran.nama %></td>
+                    <td><%= pasienRawatInap[index].noPendaftaran.jenisKelamin %></td>
+                    <td><%= pasienRawatInap[index].noPendaftaran.asuransi %></td>
+                    <td><%= pasienRawatInap[index].jalurMasuk %></td>
+                    <td><%= pasienRawatInap[index].noPendaftaran.ruangan %></td>
+                    <td><%= pasienRawatInap[index].noKasur %></td>
+                    <td><%= pasienRawatInap[index].getMonthYearDate() %></td>
+                    <td><%= pasienRawatInap[index].penyakitPotensiWabah %></td>
+                    <td><%= pasienRawatInap[index].diagnosa %></td>
+                    <td><%= pasienRawatInap[index].keterangan %></td>
+                    <td><%= pasienRawatInap[index].status %></td>
+
+                    <td>
+                        <div class="image">
+                            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
+                            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                        </div>
+                    </td>
+                </tr>
                 <% } %>
-            </tr>
-        <% }); %>
-        
-        </tbody>
+            </tbody>
+
+
     </table>
 </div>
+
+<script>
+    function tanggalHariIni() {
+        const date = new Date()
+
+        return date;
+    }
+</script>

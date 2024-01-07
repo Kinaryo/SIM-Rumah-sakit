@@ -3,7 +3,6 @@ const express = require('express')
 const formulirPasien = require ('../models/formulirPasien')
 const kartuBerobat = require('../models/kartuBerobat')
 const BPJS = require('../models/asuransi/bpjs')
-const pasienRawatInap = require('../models/pasienRawatInap')
 
 const router = express.Router();
 
@@ -63,7 +62,6 @@ router.post('/saveformulirpasien', async (req, res) => {
                 await bpjsData.save();
             }
 
-            // Log BPJS data
             const tanggalFormattedMasuk = pasien.getMonthYearDateMasuk();
             const tanggalFormattedLahir = pasien.getMonthYearDateLahir();
 

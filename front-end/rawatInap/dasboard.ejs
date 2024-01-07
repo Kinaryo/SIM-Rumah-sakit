@@ -1,4 +1,42 @@
 <% layout('/layouts/app') %>
-<div class="container" style="margin-top: 200px;">
-<a href="/rawatinap/tambah-data-pasien-rawat-inap"> <button>tambah</button></a>
+<div class="" style="margin: 200px 0 0 0; padding: 0; width: 100% ; background-color: aqua;">
+        <div class="container" style="background-color: azure; width: 200%;">
+
+            <div class="row text-center justify-content-around">
+                <div class="card col-sm-3" style="background-color: blue; min-height: 100px; margin: 5px 10px;">
+                    <p></p>
+                </div>
+                <div class="card col-sm-3" style="background-color: blueviolet; min-height: 100px;  margin: 5px 10px;">
+                    <div class="row">
+                        <div class="col-sm-6" id="title-kamar-kosong">
+                            <p>Kamar kosong</p>
+                        </div>
+                        <div class="col-sm-6" id=" field-kamar-kosong">
+                            <p>: <%= dataKamar.ruangan %></p>
+                        </div>
+                        
+                    </div>
+                    <button>cek detail</button>
+                </div>
+                <div class="card col-sm-3" style="background-color: bisque; min-height: 100px; margin: 5px 10px;">
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-10 justify-content-end" style="min-height: 200px;background-color: brown;">
+
+                </div>
+
+            </div>
+
+
+
+        <div id="pasien-baru">            
+                <a href="/rawatinap/tambah-data-pasien-rawat-inap"> <button>tambah</button></a>
+        </div>
+    </div>
 </div>

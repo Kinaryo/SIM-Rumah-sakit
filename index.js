@@ -1,16 +1,15 @@
 const express = require ('express')
+const flash = require('connect-flash')
 const ejsMate = require('ejs-mate')
 require('dotenv').config();
 const path = require('path')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const staffRawatInap = require('./models/staffRawatInap')
 const app = express()
+const session = require('express-session')
 
-
-
-const formulirPasien = require ('./models/formulirPasien')
-const kartuBerobat = require('./models/kartuBerobat')
-const BPJS = require('./models/asuransi/bpjs')
-const pasienRawatInap = require('./models/pasienRawatInap')
 // setup databases
 const PORT = 3000;
 const databases = "Data"
@@ -41,12 +40,42 @@ app.set('views',path.join(__dirname,'front-end'))
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({extended:true}))
+app.use(session({
+    secret: 'this-is-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        httpOnly:true,
+        expires:Date.now() + 1000*60*60*24*7,
+        maxAge: 1000*60*60*24*7
+    }
+}));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(staffRawatInap.authenticate()));
+passport.serializeUser(staffRawatInap.serializeUser)
+passport.deserializeUser(staffRawatInap.deserializeUser)
 
 
-app.get('/',(req,res)=>{
-    res.render('loketAdmin/dasboard')
-})
 
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg'); // Pengejaan yang benar
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
+
+
+
+
+
+
+// app.get('/',(req,res)=>{
+//     res.render('loketAdmin/dasboard')
+// })
+
+app.use('/', require('./routes/auth'))
 app.use('/loket', require('./routes/loketAdmin'))
 app.use('/rawatinap',  require('./routes/stafRawatInap'));
 

@@ -8,7 +8,12 @@ const pasienRawatInap = require('../models/pasienRawatInap')
 const router = express.Router();
 
 router.get('/dasboard', async (req, res) => {
-    res.render('rawatInap/dasboard');
+    const dataKamar = await formulirPasien.findOne({ruangan : 'Kamboja'})
+    if(dataKamar){
+        console.log(dataKamar.ruangan)
+    }
+    req.flash('success_msg', 'hailoh')
+    res.render('rawatInap/dasboard' , {dataKamar});
 })
 
 
@@ -62,14 +67,18 @@ router.post('/isiDataPasienRawatInap/save', async (req, res) => {
             noPendaftaran: formulirId, // Menggunakan formulirId sebagai noPendaftaran
             ...req.body.pasienRawatInap,
         });
+        const formatTanggalMasukRawatInap = pasien.getMonthYearDate();
         await pasien.save();
         // Populasikan data pasienRawatInap
-        const pasienWithPopulate = await pasienRawatInap.findById(pasien._id).populate('noPendaftaran');
+        await pasienRawatInap.findById(pasien._id).populate('noPendaftaran');
         // Perbarui formulirPasien dengan ID pasienRawatInap
         formulir.pasienRawatInapId = pasien._id;
         await formulir.save();
+
+        console.log("iniloh",formatTanggalMasukRawatInap)
         // Render tanggapan
-        res.redirect('/rawatInap/daftarPasien');
+        
+        res.render('/rawatInap/daftarPasien');
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: 'Terjadi kesalahan dalam menyimpan data pasien rawat inap' });
@@ -81,9 +90,10 @@ router.get('/daftarPasien', async (req, res) => {
         // Menggunakan fungsi `populate` untuk mengisi data pasienRawatInap dengan data formulirPasien
         const semuaDataPasien = await pasienRawatInap.find()
             .populate('noPendaftaran');
-
+           
         console.log('isi semua data', semuaDataPasien);
-        res.render('rawatInap/daftarPasien', { pasienRawatInap: semuaDataPasien });
+    
+        res.render('rawatInap/daftarPasien', { pasienRawatInap: semuaDataPasien});
     } catch (error) {
         console.error('Error dalam mendapatkan data pasien rawat inap:', error);
         res.status(500).json({ message: 'Terjadi kesalahan dalam mengambil data pasien rawat inap', error });

@@ -10,12 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.2.3",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "mongoose": "^8.0.3",
-    "session": "^0.1.0"
+    "passport": "^0.7.0",
+    "passport-local-mongoose": "^8.0.0",
+    "session": "^0.1.0",
+    "sweetalert": "^2.1.2"
   }
 }

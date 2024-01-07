@@ -7,7 +7,7 @@ const pasienRawatInapSchema = new Schema({
         ref: 'formulirPasien'
     },
     noKasur:{
-        type:Number,
+        type:String,
     },
     jalurMasuk:{
         type: String,
@@ -26,8 +26,23 @@ const pasienRawatInapSchema = new Schema({
     },
     tanggalKeluar:{
         type: Date,
+    },
+    penyakitPotensiWabah:{
+        type: String,
+    },
+    tanggalMasukRawatInap : {
+        type: Date,
+        default: "false"
     }
 
 });
 
+
+pasienRawatInapSchema.methods.getMonthYearDate = function () {
+    if (this.tanggalMasukRawatInap) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return this.tanggalMasukRawatInap.toLocaleDateString('id-ID', options);
+    }
+    return "Tanggal Masuk Tidak Tersedia";
+};
 module.exports = mongoose.model('pasienRawatInap', pasienRawatInapSchema);

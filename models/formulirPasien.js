@@ -55,12 +55,6 @@ const formulirPasienSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'kartuBerobat'
     },
-    // asuransiSelect: {
-    //     type: String, // Sesuaikan dengan tipe data yang diharapkan
-    // },
-    // asuransiLainnya: {
-    //     type: String, // Sesuaikan dengan tipe data yang diharapkan
-    // },
 });
 
 formulirPasienSchema.methods.getMonthYearDateMasuk = function () {
