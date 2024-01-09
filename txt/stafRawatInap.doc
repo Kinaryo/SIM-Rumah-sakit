@@ -12,8 +12,8 @@ router.get('/dasboard', async (req, res) => {
     if(dataKamar){
         console.log(dataKamar.ruangan)
     }
-    // req.flash('success_msg', 'Selamat Datang Kembali')
-    res.render('rawatInap/dasboard' , {dataKamar: dataKamar});
+    req.flash('success_msg', 'Selamat Datang Kembali')
+    res.render('rawatInap/dasboard' , {dataKamar});
 })
 
 
@@ -78,7 +78,7 @@ router.post('/isiDataPasienRawatInap/save', async (req, res) => {
         console.log("iniloh",formatTanggalMasukRawatInap)
         // Render tanggapan
         
-        res.redirect('/rawatinap/daftarPasien');
+        res.render('/rawatInap/daftarPasien');
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: 'Terjadi kesalahan dalam menyimpan data pasien rawat inap' });

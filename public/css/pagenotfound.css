@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    font-family: 0;
+}
+
+.page_404{
+    padding: 40px 0;
+    /* font-family: 'Poppins', Cambria, 'Times New Roman'; */
+}
+
+.page_404 img {
+    width: 100%;
+}
+
+.four_zero_four_bg{
+    background: url('../images/not404.gif');
+    height: 400px;
+    background-position: center;
+}
+
+h1 {
+    font-size: 80px;
+}
+h3 {
+    font-size: 80px
+}
+
+a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: greenyellow;
+    display: inline-block;
+}
+
+.content_box_404{
+    margin-top: -50px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}

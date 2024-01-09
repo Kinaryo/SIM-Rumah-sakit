@@ -1,0 +1,150 @@
+<% layout ('layouts/app') %>
+
+
+<style>
+
+    label, input {
+        font-size: 1.5rem;
+    }
+    h1{
+        text-align: center;
+    }
+    .row .col-sm-6 .row {
+        margin-top: 2px;
+    }
+    .btn{
+        margin-left: -10px;
+    }
+    .btn-button {
+        padding: 3px 8px;
+        border-radius: 5px;
+        width: 80px;
+    }
+    #button-success {
+       background-color: rgb(127, 222, 127);
+    }
+</style>
+<div class="container bg-warning  " style="margin-top: 150px; text-align: left; font-size: 14px; padding-top: 10px; padding-bottom: 1px;">
+    <h1>Tambah Data Staff Rawat Inap</h1>
+<form action="#" method="POST">
+
+    <div class="row" style="padding: 20px;">
+        <div class="col-sm-6" > 
+
+        <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="divisi" class="col-form-label">Divisi</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" id="divisi" name="divisi"
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                </div>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-3">
+                <label for="nama" class="col-form-label">Nama</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="nama" name="nama"
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+            </div>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-3">
+                <label for="nik" class="col-form-label">NIK</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="nik" name="nik"
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+            </div>
+        </div>
+
+
+        <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="nip" class="col-form-label">NIP</label>
+                </div>
+                <div class="col-8">
+                    <input type="number" id="nip" name="nip"
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                </div>
+        </div>
+
+
+        <div class="row g-3 align-items-center">
+                <div class="col-3">
+                <label for="tanggalLahir" class="col-form-label">Tanggal Lahir</label>
+                </div>
+            <div class="col-8">
+                <input type="date" id="tanggalLahir" name="tanggalLahir"
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+            </div>
+        </div>
+        </div>
+    
+
+
+        <div class="col-sm-6">
+
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="username" class="col-form-label">Username</label>
+                </div>
+                <div class="col-8">
+                    <input type="username" id="username" name="username"
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                </div>
+            </div>
+    
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="email" class="col-form-label">Email</label>
+                </div>
+                <div class="col-8">
+                    <input type="email" id="email" name="email"
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="noHp" class="col-form-label">No. Hp</label>
+                </div>
+                <div class="col-8">
+                    <input type="number" id="noHp" name="noHp"
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                </div>
+            </div>
+        
+        <div class="row g-3 align-items-center">
+            <div class="col-3">
+                <label for="password" class="col-form-label">Password</label>
+            </div>
+            <div class="col-8">
+                <input type="password" id="password" name="password"
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+            </div>
+        </div>
+
+
+        <div class="align-items-center d-flex justify-content-end" style="padding: 5px; margin-right: 30px; margin-bottom: 10px; margin-top: 15px;">
+            <div class="btn">
+                <a href="/admin/tambah-staff-rawat-inap"> <button class="btn-button bg-danger" id="" type="button">Batal</button></a>
+             </div>
+    
+            <div class="btn">
+                <a href="/admin/dasboard"> <button class="btn-button bg-warning-subtle" id="" type="button">Kembali</button></a>
+             </div>
+    
+             <div class="btn">
+                <button class="btn-button" id="button-success" type="submit">Simpan</button>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+</form>
+</div>
+

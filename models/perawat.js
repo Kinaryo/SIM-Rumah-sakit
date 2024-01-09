@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const staffRawatInapSchema = new Schema({
+const perawatSchema = new Schema({
     divisi:{
         type: String,
         default:"Staf Rawat Inap"
@@ -15,6 +15,9 @@ const staffRawatInapSchema = new Schema({
     },
     nip:{
         type:Number,
+    },
+    noSTR:{
+        type: String,
     },
     tanggalLahir:{
         type:Date,
@@ -32,5 +35,5 @@ const staffRawatInapSchema = new Schema({
     }
 })
 
-staffRawatInapSchema.plugin(passportLocalMongoose);
-module.exports = mongoose.model('staffRawatInap', staffRawatInapSchema)
+perawatSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model('perawat',perawatSchema)

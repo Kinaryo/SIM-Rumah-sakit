@@ -1,0 +1,241 @@
+<% layout('/layouts/app') %>
+<style>
+    .container{
+        font-size: 1rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    p {
+        margin: 0px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    h4 {
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .data-output {
+        padding: 3px;
+        padding-left: 10px;
+    }
+
+    .input-data .row {
+        margin-top: 0.5px;
+    }
+
+    hr {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid black;
+    }
+
+    .data-rawat-inap {
+        margin-right: 2px;
+    }
+</style>
+<div class="container bg-body-secondary" style="margin-top: 175px; padding-top: 25px" >
+
+    <div class="align-items-center" style="margin-top:15px; max-width: 100% ">
+        <!-- Formulir Pencarian -->
+        <form id="formPencarian" action="" method="GET" style="margin-left: 55px;">
+            <label for="nomorPendaftaran">Masukan Nomor Pendaftaran:</label>
+            <input class="" type="text" id="nomorPendaftaran" name="nomorPendaftaran" required style="border-radius: 5px;">
+            <button class="bg-success opacity-75" type="submit" style="border-radius: 5px; font-weight: bold;">Cari</button>
+        </form>
+
+    </div>
+
+    <div class="d-flex justify-content-around" style="padding: 15px 0px;">
+        <div class="data data-pribadi bg-success-subtle col-sm-6 col-md-5">
+            <h4>Data Pribadi Pasien</h4>
+            <hr class="opacity-100">
+            <div class="row data-output">
+                <div class="col-md-4">
+
+                    <p>No. Pendaftaran</p>
+                    <p>Nama</p>
+                    <p>Jenis Kelamin</p>
+                    <p>Tanggal Masuk</p>
+
+                </div>
+
+                <div class="col-md-6" id="hasilPencarian">
+                </div>
+            </div>
+        </div>
+
+        <form action="/rawatinap/isiDataPasienRawatInap/save" method="POST"class="col-md-5 col-sm-8">
+            <div class="data-rawat-inap bg-warning-subtle  " style="padding: 5px 15px;">
+                <h4>Data yang harus diisi</h4>
+                <hr class="opacity-100">
+                <div class="row data">
+
+                    <div class="input-data">
+
+                        <div class="col-8" id="idElement" style="display: none;">                   
+                        </div>
+
+                        <div class="row g-3 align-items-center" id="">
+                            <div class="col-3">
+                                <label for="ruangan">Ruangan(terisi Otomatis) </label>
+                            </div>
+                            <div class="col-sm-8" id="namaRuangan">
+                            </div>
+                        </div>
+                 
+
+
+                        <div id="nomorKasur" class="row g-3 align-items-center">
+
+                        </div>
+                
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="jalurMasuk" class="col-form-label">Jalur Masuk</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="jalurMasuk" name="pasienRawatInap[jalurMasuk]"
+                                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="diagnosa" class="col-form-label">Diagnosa</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="diagnosa" name="pasienRawatInap[diagnosa]" class="form-control"
+                                    aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="penyakitPotensiWabah">Penyakit Potensi Wabah:</label>
+                            </div>
+                            <div class="col-8">
+                                <select name="pasienRawatInap[penyakitPotensiWabah]" id="penyakitPotensiWabah" class="form-select" aria-label="Default select example">
+                                    <option selected disabled>Pilih Penyakit W2</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                    <option value="Malaria Tropika">Malaria Tropika</option>
+                                    <option value="Malaria Tertiava">Malaria Tertiava</option>
+                                    <option value="DBD">DBD</option>
+                                    <option value="TBC">TBC</option>
+                                    <option value="Diare">Diare</option>
+                                    <option value="Campak">Campak</option>
+                                    <Option value="ILI">ILI</Option>
+                                    <option value="Disentri">Disentri</option>
+                                    </select>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="keterangan" class="col-form-label">Keterangan</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="keterangan" name="pasienRawatInap[keterangan]"
+                                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-3">
+                                <label for="tanggalMasukRawatInap" class="col-form-label">Tanggal Masuk Rawat Inap</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" id="tanggalMasukRawatInap" name="pasienRawatInap[tanggalMasukRawatInap]"
+                                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3 align-items-center">
+                            <div class="col-3">
+                                <label for="status" class="col-form-label">Status</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" id="status" name="pasienRawatInap[status]" class="form-control"
+                                    aria-describedby="passwordHelpInline" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end" style="margin-right: 2px;">
+                <button type="submit" class="btn btn-success mt-3" style="margin-right: 3px;">Simpan</button>
+                <a href="/rawatinap/dasboard"><button type="button" class="btn btn-danger mt-3">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formPencarian = document.getElementById('formPencarian');
+        const hasilPencarian = document.getElementById('hasilPencarian');
+        const idElement = document.getElementById('idElement')
+        const namaRuangan  = document.getElementById('namaRuangan')
+        const nomorKasur = document.getElementById('nomorKasur')
+        formPencarian.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const nomorPendaftaran = document.getElementById('nomorPendaftaran').value;
+
+            // Lakukan AJAX request untuk mencari pasien
+            fetch(`/rawatinap/cari-pasien?noPendaftaran=${nomorPendaftaran}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Tampilkan hasil pencarian
+                    if (data.error) {
+                        hasilPencarian.innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        hasilPencarian.innerHTML = `<p>: ${data.noPendaftaran}</p>
+                                                  <p>: ${data.pasienRawatInap.nama}</p>
+                                                  <p>: ${data.pasienRawatInap.jenisKelamin}</p>
+                                                  <p>: ${data.pasienRawatInap.tanggalMasuk}</p>`;
+                       idElement.innerHTML = `<input type="string" id="formulirId" name="pasienRawatInap[formulirId]" class="form-control" aria-describedby="passwordHelpInline" placeholder="id" value="${data.pasienRawatInap._id}">`;
+                       namaRuangan.innerHTML = `<input type="string" id="ruangan" name="pasienRawatInap[ruangan]" class="form-control" aria-describedby="passwordHelpInline" value="${data.pasienRawatInap.ruangan}">`;
+
+                       const namaRuanganNoKasur= `${data.pasienRawatInap.ruangan}`
+
+                        if(namaRuanganNoKasur === 'Kamboja'){
+                            nomorKasur.innerHTML = `
+                            <div class="col-3">
+                            <label for="noKasur" class="form-label">No.Kasur</label>
+                            </div>
+
+                            <div class="col-8">
+                            <select name="pasienRawatInap[noKasur]" id="noKasur" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih No.Kasur</option>
+                            <option value="KMJ01">KMJ01</option>
+                            <option value="KMJ02">KMJ02</option>
+                            <option value="KMJ03">KMJ03</option>
+                            </select>
+                            </div>
+                            `
+                        }else if (namaRuanganNoKasur === 'Melati'){
+                            nomorKasur.innerHTML = `
+                            <div class="col-3">
+                            <label for="noKasur" class="form-label">No.Kasur</label>
+                            </div>
+
+                            <div class="col-8">
+                            <select name="pasienRawatInap[noKasur]" id="noKasur" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih No.Kasur</option>
+                            <option value="MLT01">MLT01</option>
+                            <option value="MLT02">MLT02</option>
+                            <option value="MLT03">MLT03</option>
+                            </select>
+                            </div>
+                            `
+                        }                    
+
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>

@@ -1,0 +1,18 @@
+<% layout ('layouts/app') %>
+
+<h1 style="margin-top: 250px;">Lorem, ipsum.</h1>
+
+<a href="/admin/tambah-admin-loket">tambah data admin loket</a> <br>
+<a href="/admin/tambah-perawat">tambah data perawat</a> <br>
+<a href="/admin/tambah-staff-rawat-inap">tambah data Staff rawat inap</a>
+
+
+<div class="card">
+    <% if (registeredStaff) { %>
+        <p>Nama Staff: <%= registeredStaff.nama %></p>
+        <p>NIK: <%= registeredStaff.nik %></p>
+        <!-- Tambahkan elemen lain sesuai kebutuhan -->
+    <% } else { %>
+        <p>Tidak ada staff terdaftar.</p>
+    <% } %>
+</div>

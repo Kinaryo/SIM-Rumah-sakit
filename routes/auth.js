@@ -18,16 +18,16 @@ router.post('/register', async (req, res) => {
 
             // Set pesan flash sukses dan redirect ke dashboard
             req.flash('success_msg', 'Berhasil menambahkan data');
-            res.redirect('/rawatinap/dasboard');
+            res.redirect('/rawatinap/dasboard', );
         } else {
             console.log('Registrasi gagal');
             req.flash('error_msg', 'Gagal menambahkan data');
-            res.redirect('/rawatinap/dasboard'); // Redirect ke halaman registrasi jika registrasi gagal
+            res.redirect('/register'); // Redirect ke halaman registrasi jika registrasi gagal
         }
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
         req.flash('error_msg', 'Terjadi kesalahan saat registrasi');
-        res.redirect('/rawatinap/dasboard'); // Redirect ke halaman registrasi jika terjadi kesalahan
+        res.redirect('/register'); // Redirect ke halaman registrasi jika terjadi kesalahan
     }
 });
 

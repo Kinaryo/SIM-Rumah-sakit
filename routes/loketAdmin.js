@@ -1,13 +1,20 @@
 const express = require('express')
+const router = express.Router();
 
 const formulirPasien = require ('../models/formulirPasien')
 const kartuBerobat = require('../models/kartuBerobat')
 const BPJS = require('../models/asuransi/bpjs')
 
-const router = express.Router();
 
 
-router.get('/',(req,res)=>{
+// pagenotfound
+router.get('/pagenotfound',async(req,res)=>{
+    res.render('loketAdmin/pageNotFoundLoket')
+    
+})
+
+
+router.get('/dasboard',(req,res)=>{
     res.render('loketAdmin/dasboard')
 })
 
