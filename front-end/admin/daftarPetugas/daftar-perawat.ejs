@@ -1,0 +1,89 @@
+<% layout('/layouts/app') %>
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px 5px; 
+            font-size: 15px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .image{
+            min-width: 100px;
+        }
+        .image a img {
+            max-width: 25px;
+        }
+        table tr th {
+            text-align: center;
+            justify-content: center;
+        }
+
+    </style>
+<div style="margin-top: 125px;">
+
+
+<h2 style="text-align: center;">Daftar Perawat</h2>
+
+<table>
+    <tr>
+        <th>No</th>
+        <th style="max-width: 100px;">Divisi</th>
+        <th>Nama</th>
+        <th>NIK</th>
+        <th>NIP</th>
+        <th>No. STR</th>
+        <th>Jenis Kelamin</th>
+        <th>TanggalLahir</th>
+        <th>No HP</th>
+        <th>Email</th>
+        <th>Alamat</th>
+        <th>Aksi</th>
+    </tr>
+    <% for (let index = 0; index < dataPerawat.length; index++) { %>
+        <tr>
+            <td><%= index + 1 %></td>
+            <td style="max-width: 100px;"><%= dataPerawat[index].divisi %></td>
+            <td><%= dataPerawat[index].nama %></td>
+            <td><%= dataPerawat[index].nik %></td>
+            <td><%= dataPerawat[index].nip %></td>
+            <td><%= dataPerawat[index].noSTR %></td>
+            <td><%= dataPerawat[index].jenisKelamin%></td>
+            <td><%= dataPerawat[index].getMonthYearDateLahir() %></td>
+            <td><%= dataPerawat[index].noHp%></td>
+            <td><%= dataPerawat[index].email %></td>
+            <td><%= dataPerawat[index].alamat %></td>
+
+
+
+            <!-- Isilah kolom-kolom lain sesuai dengan properti pasien yang sesuai -->
+            <td>
+                <div class="image">
+                    <a href=><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
+                    <a href="/admin/data-perawat/<%= dataPerawat[index]._id %>/edit"><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                </div>
+            </td>
+        </tr>
+    <% } %>
+</table>

@@ -4,6 +4,7 @@ const formulirPasien = require ('../models/formulirPasien')
 const kartuBerobat = require('../models/kartuBerobat')
 const BPJS = require('../models/asuransi/bpjs')
 const pasienRawatInap = require('../models/pasienRawatInap')
+const controlPasien = require('../models/controlPasien')
 
 const router = express.Router();
 
@@ -102,8 +103,23 @@ router.get('/daftarPasien', async (req, res) => {
     }
 });
 
+router.get('/controlPasien/:id',async (req,res)=>{
+    const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+        .populate('noPendaftaran')
+    console.log('iniloh', pasienrawatinap)
+    res.render('rawatInap/control' ,{pasienrawatinap})
+})
 
+router.post('/controlPasien/:id/save', async(req,res)=>{
+    const control = new controlPasien(req.body);
+    const RawatInappasien = await pasienRawatInap.findById(req.params.id);
+    RawatInappasien.controlPasiens.push(control)
 
+    await control.save()
+    await RawatInappasien.save();
+
+    res.redirect('/rawatinap/dasboard')
+})
 
 
 

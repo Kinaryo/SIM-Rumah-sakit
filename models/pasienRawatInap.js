@@ -32,8 +32,11 @@ const pasienRawatInapSchema = new Schema({
     },
     tanggalMasukRawatInap : {
         type: Date,
-        default: "false"
-    }
+    },
+    controlPasiens:[{
+        type: Schema.Types.ObjectId,
+        ref: 'controlPasien'
+    }]
 
 });
 

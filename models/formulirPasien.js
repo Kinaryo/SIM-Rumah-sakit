@@ -55,6 +55,11 @@ const formulirPasienSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'kartuBerobat'
     },
+
+
+
+
+
 });
 
 formulirPasienSchema.methods.getMonthYearDateMasuk = function () {

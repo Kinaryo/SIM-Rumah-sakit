@@ -1,0 +1,158 @@
+Tentu, kita bisa menambahkan MongoDB untuk menyimpan data barang. Berikut adalah langkah-langkahnya:
+
+Instal Modul MongoDB:
+
+Instal modul MongoDB untuk Node.js dengan perintah:
+bash
+Copy code
+npm install mongoose
+Koneksi ke MongoDB:
+
+Di dalam app.js, tambahkan kode untuk menghubungkan aplikasi ke MongoDB:
+javascript
+Copy code
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/nama_database', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Koneksi MongoDB gagal:'));
+db.once('open', () => {
+  console.log('Berhasil terkoneksi ke MongoDB');
+});
+Buat Schema MongoDB:
+
+Buat file models/item.js untuk menentukan schema data barang:
+javascript
+Copy code
+const mongoose = require('mongoose');
+
+const itemSchema = new mongoose.Schema({
+  kode: { type: String, required: true },
+  nama: { type: String, required: true },
+  satuan: { type: String, required: true },
+  jumlah: { type: Number, required: true },
+});
+
+const Item = mongoose.model('Item', itemSchema);
+
+module.exports = Item;
+Routes dan Logika di Backend:
+
+Di dalam app.js, ubah logika routes untuk menggunakan MongoDB:
+javascript
+Copy code
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Item = require('./models/item'); // Import schema MongoDB
+const app = express();
+const port = 3000;
+
+// Koneksi ke MongoDB
+mongoose.connect('mongodb://localhost:27017/nama_database', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Koneksi MongoDB gagal:'));
+db.once('open', () => {
+  console.log('Berhasil terkoneksi ke MongoDB');
+});
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
+// Routes
+app.get('/', async (req, res) => {
+  try {
+    const items = await Item.find();
+    res.render('index', { items });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
+app.post('/tambah', async (req, res) => {
+  const { kode, nama, satuan, jumlah } = req.body;
+  try {
+    await Item.create({ kode, nama, satuan, jumlah });
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
+app.post('/ambil', async (req, res) => {
+  const { kode, jumlahAmbil } = req.body;
+  try {
+    const item = await Item.findOne({ kode });
+
+    if (item && item.jumlah >= jumlahAmbil) {
+      item.jumlah -= jumlahAmbil;
+      await item.save();
+    }
+
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`);
+});
+Dengan langkah-langkah ini, Anda sekarang memiliki integrasi MongoDB dalam aplikasi Node.js Anda untuk logistik dan farmasi. Pastikan untuk menyesuaikan URL koneksi MongoDB dan nama database sesuai dengan konfigurasi Anda.
+
+User
+lanjutkan untuk routes-routes lainnya. dan kenapa pada method post menggunakan item.create
+ChatGPT
+Tentu, saya akan melanjutkan untuk menambahkan routes lainnya dan memberikan penjelasan mengenai penggunaan Item.create pada method POST.
+
+Routes Lainnya:
+
+Selain routes untuk menambah dan mengambil barang, Anda mungkin ingin menambahkan routes untuk mengedit dan menghapus barang. Berikut adalah contoh implementasinya:
+javascript
+Copy code
+// Edit Barang (GET)
+app.get('/edit/:id', async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.id);
+    res.render('edit', { item });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
+// Update Barang (POST)
+app.post('/update/:id', async (req, res) => {
+  const { kode, nama, satuan, jumlah } = req.body;
+  try {
+    await Item.findByIdAndUpdate(req.params.id, { kode, nama, satuan, jumlah });
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
+// Hapus Barang (POST)
+app.post('/hapus/:id', async (req, res) => {
+  try {
+    await Item.findByIdAndRemove(req.params.id);
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+Penjelasan Penggunaan Item.create:
+
+Metode Item.create digunakan untuk membuat dokumen baru (baris baru dalam koleksi) di MongoDB menggunakan model Item. Metode ini adalah salah satu cara praktis untuk menyisipkan data ke dalam koleksi MongoDB.
+Saat Anda menggunakan await Item.create({ kode, nama, satuan, jumlah }), Anda membuat instance baru dari model Item dan menyimpannya langsung ke dalam koleksi MongoDB.
+Metode ini menangani detail teknis seperti validasi, penyimpanan, dan pengindeksan yang terkait dengan operasi penyisipan data ke MongoDB.
+Harap dicatat bahwa Anda perlu membuat file edit.ejs di folder views untuk menangani tampilan edit barang. Anda juga dapat menyesuaikan routes dan tampilan sesuai kebutuhan aplikasi Anda.
+
+Dengan demikian, Anda sekarang memiliki routes untuk menangani penambahan, pengambilan, pengeditan, dan penghapusan barang dalam aplikasi logistik dan farmasi menggunakan Node.js, Express, EJS, dan MongoDB.

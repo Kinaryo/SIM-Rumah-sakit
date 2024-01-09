@@ -19,6 +19,9 @@ const perawatSchema = new Schema({
     noSTR:{
         type: String,
     },
+    jenisKelamin:{
+        type:String
+    },
     tanggalLahir:{
         type:Date,
     },
@@ -30,10 +33,21 @@ const perawatSchema = new Schema({
         required: true,
         unique: true,
     },
+    username:{
+        type:String
+    },
     alamat:{
         type: String,
     }
 })
+
+perawatSchema.methods.getMonthYearDateLahir = function () {
+    if (this.tanggalLahir) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return this.tanggalLahir.toLocaleDateString('id-ID', options);
+    }
+    return "Tanggal Lahir Tidak Tersedia";
+};
 
 perawatSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('perawat',perawatSchema)

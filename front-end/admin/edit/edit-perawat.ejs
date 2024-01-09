@@ -25,8 +25,10 @@
     }
 </style>
 <div class="container bg-warning  " style="margin-top: 150px; text-align: left; font-size: 14px; padding-top: 10px;">
-    <h1>Tambah Data Perawat</h1>
-<form action="/admin/tambah-perawat/save" method="POST">
+    <h1>Edit Data Perawat</h1>
+
+    
+<form action="/admin/<%= editPerawat._id %>/edit/update" method="PUT">
 
     <div class="row" style="padding: 20px;">
         <div class="col-sm-6" > 
@@ -39,7 +41,7 @@
             </div>
             <div class="col-8">
                 <input type="text" id="nama" name="nama"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nama %>"> 
             </div>
         </div>
 

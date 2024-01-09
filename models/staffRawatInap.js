@@ -27,6 +27,9 @@ const staffRawatInapSchema = new Schema({
         required: true,
         unique: true,
     },
+    username:{
+        type:String
+    },
     alamat:{
         type: String,
     }

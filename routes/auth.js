@@ -1,34 +1,31 @@
 const express = require('express')
 const router = express.Router();
+const passport = require('passport')
 
 const staffRawatInap = require('../models/staffRawatInap')
+const staffAdminLoket = require('../models/staffAdminLoket')
 
-router.get('/register', async (req, res) => {
-    res.render('auth/register')
+router.get('/login', async (req, res) => {
+    res.render('auth/login')
 });
 
-router.post('/register', async (req, res) => {
-    try {
-        const { email, username, password } = req.body;
-        const staff = new staffRawatInap({ email, username });
-        const registeredStaff = await staffRawatInap.register(staff, password);
-
-        if (registeredStaff) {
-            console.log('Registrasi berhasil:', registeredStaff);
-
-            // Set pesan flash sukses dan redirect ke dashboard
-            req.flash('success_msg', 'Berhasil menambahkan data');
-            res.redirect('/rawatinap/dasboard', );
-        } else {
-            console.log('Registrasi gagal');
-            req.flash('error_msg', 'Gagal menambahkan data');
-            res.redirect('/register'); // Redirect ke halaman registrasi jika registrasi gagal
-        }
-    } catch (error) {
-        console.error('Terjadi kesalahan:', error);
-        req.flash('error_msg', 'Terjadi kesalahan saat registrasi');
-        res.redirect('/register'); // Redirect ke halaman registrasi jika terjadi kesalahan
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: {
+        type: 'error_msg',
+        msg: 'Invalid Username or password'
     }
+}), (req, res) => {
+    req.flash('success_msg', 'You are logged in');
+    res.redirect('/rawatinap/daftarPasien');
 });
+
+// Tambahkan penanganan kesalahan
+router.post('/login', (err, req, res, next) => {
+    console.error(err.message);
+    req.flash('error_msg', 'An error occurred during login');
+    res.redirect('/login');
+});
+
 
 module.exports = router
