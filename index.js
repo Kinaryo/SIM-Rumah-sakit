@@ -6,14 +6,14 @@ const path = require('path')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const staffRawatInap = require('./models/staffRawatInap')
+const staffRawatInapAuth = require('./models/auth-admin-loket')
 const perawat = require('./models/perawat')
 const app = express()
 const session = require('express-session')
 
 // setup databases
 const PORT = 3000;
-const databases = "Data"
+const databases = "Dt"
 mongoose.connect(`mongodb://127.0.0.1/${databases}`)
 .then((result)=>{
     console.log(`Connected to Mongodb(${databases})`)
@@ -55,9 +55,9 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(perawat.authenticate()));
-passport.serializeUser(perawat.serializeUser)
-passport.deserializeUser(perawat.deserializeUser)
+passport.use(new LocalStrategy(staffRawatInapAuth.authenticate()));
+passport.serializeUser(staffRawatInapAuth.serializeUser)
+passport.deserializeUser(staffRawatInapAuth.deserializeUser)
 
 
 
@@ -71,10 +71,11 @@ app.use((req, res, next) => {
 app.use('/admin', require('./routes/admin'))
 
 
+
 app.use('/', require('./routes/auth'))
 app.use('/loket', require('./routes/loketAdmin'))
 app.use('/rawatinap',  require('./routes/stafRawatInap'));
-app.use('/logistik-farmasi',require('./routes/logistikFarmasi'))
+app.use('/logstik-farmasi',require('./routes/logistikFarmasi'))
 
 
 
