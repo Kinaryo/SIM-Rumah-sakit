@@ -1,4 +1,7 @@
 <% layout('/layouts/app') %>
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+  <%- include('../layouts/partials/navbar-admin-loket')  %>
+</div>
 
 <style>
   body {
@@ -59,50 +62,55 @@
 <div class="container bg-body-secondary" >
 
   <div class="area-print" style="width: 500px; text-align: center;" id="areaKartuBerobat">
-  <div class="card bg-success-subtle" >
-    <div class="d-flex justify-content-between card-header" style="border-bottom: 2px solid black;">
-      <!-- Left Image Logo -->
-      <div class="image-logo1">
-        <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996225/simrs/rsud_merauke-modified_nep793.png" style="max-width: 50px;" alt="">
-      </div>
-      <!-- Title Header -->
-      <div class="title-header">
-        <h4 style="text-align: center;">PEMERINTAH KABUPATEN MERAUKE</h4>
-        <h4 style="text-align: center;">DINAS KESEHATAN</h4>
-        <h4 style="text-align: center;">RSUD MERAUKE</h4>
-        <p style="margin-bottom: 0px;">jl raya mandala, merauke, Papua Selatan 99616, Indonesia</p>
-      </div>
-      <!-- Right Image Logo -->
-      <div class="image-logo2">
-        <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996307/simrs/LOGO_KABUPATEN_MERAUKE_iv0bqk.png" style="max-width: 50px;" alt="">
-      </div>
-    </div>
-    <!-- Card Content -->
-    <div class="card-content" style="padding: 0px 20px; margin-top: 2px;">
-      <h2 style="font-size: 15px; font-weight: bold; text-align: center;">KARTU BEROBAT</h2>
-      <p style="text-align: center;">Kode Registrasi: <span><%= saveKartuBerobat.kodeRegistrasi %></span></p>
 
-      <div class="d-flex justify-content-start">
-        <div class="content-label" style="margin: 0px; margin-top: 2px;">
-          <h6 style="text-align: left;">Nama <span style="margin-left: 15px;">: <%= saveKartuBerobat.nama %></span></h6>
-          <h6 style="text-align: left;">No.HP <span style="margin-left: 11px;">: <%= saveKartuBerobat.no_hp %></span></h6>
-          <h6 style="text-align: left;">Alamat <span style="margin-left: 9px;">: <%= saveKartuBerobat.alamat %></span></h6>
+<div>
+  <div>
+    <div class="card bg-success-subtle" >
+      <div class="d-flex justify-content-between card-header" style="border-bottom: 2px solid black;">
+        <!-- Left Image Logo -->
+        <div class="image-logo1">
+          <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996225/simrs/rsud_merauke-modified_nep793.png" style="max-width: 50px;" alt="">
         </div>
-    </div>
-
-    <!-- Footer -->
-
-  </div>    
-  <div class="card-footer text-body-secondary" style="padding: 10px; margin-top: 5px; margin-bottom: 0px;">
-      <p style="text-align:center;">Setiap kali berobat selalu dibawa untuk sekeluarga</p>
-    </div>
+        <!-- Title Header -->
+        <div class="title-header">
+          <h4 style="text-align: center;">PEMERINTAH KABUPATEN MERAUKE</h4>
+          <h4 style="text-align: center;">DINAS KESEHATAN</h4>
+          <h4 style="text-align: center;">RSUD MERAUKE</h4>
+          <p style="margin-bottom: 0px;">jl raya mandala, merauke, Papua Selatan 99616, Indonesia</p>
+        </div>
+        <!-- Right Image Logo -->
+        <div class="image-logo2">
+          <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996307/simrs/LOGO_KABUPATEN_MERAUKE_iv0bqk.png" style="max-width: 50px;" alt="">
+        </div>
+      </div>
+      <!-- Card Content -->
+      <div class="card-content" style="padding: 0px 20px; margin-top: 2px;">
+        <h2 style="font-size: 15px; font-weight: bold; text-align: center;">KARTU BEROBAT</h2>
+        <p style="text-align: center;">Kode Registrasi: <span><%= saveKartuBerobat.kodeRegistrasi %></span></p>
+  
+        <div class="d-flex justify-content-start">
+          <div class="content-label" style="margin: 0px; margin-top: 2px;">
+            <h6 style="text-align: left;">Nama <span style="margin-left: 15px;">: <%= saveKartuBerobat.nama %></span></h6>
+            <h6 style="text-align: left;">No.HP <span style="margin-left: 11px;">: <%= saveKartuBerobat.no_hp %></span></h6>
+            <h6 style="text-align: left;">Alamat <span style="margin-left: 9px;">: <%= saveKartuBerobat.alamat %></span></h6>
+          </div>
+      </div>
+  
+      <!-- Footer -->
+  
+    </div>    
+    <div class="card-footer text-body-secondary" style="padding: 10px; margin-top: 5px; margin-bottom: 0px;">
+        <p style="text-align:center;">Setiap kali berobat selalu dibawa untuk sekeluarga</p>
+      </div>
+  </div>
+  </div>
 </div>
 
 
 
 
-
 </div>
+
 <div>
   <button class="btn btn-primary mt-3 mb-3" onclick="return printKartuBerobat('areaKartuBerobat')">Print</button>
   <a href="kartuberobat"><button class="btn btn-danger mt-3 mb-3 ">Batal</button></a>

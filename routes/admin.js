@@ -35,18 +35,14 @@ router.get('/tambah-admin-loket/print',(req,res)=>{
     res.render('admin/print-staff-rawat-inap')
 })
 
-
-
-
 router.post('/tambah-admin-loket/save', async (req, res) => {
     try {
-        const { divisi, nama, nik, nip, tanggalLahir, noHp } = req.body;
-        const staff = new staffAdminLoket({ divisi, nama, nik, nip, tanggalLahir,noHp});
-        const cekStaff = await staff.save();
-        console.log(cekStaff)
-
+        const { divisi, nama, nik, nip, tanggalLahir, noHp, email, username, password } = req.body;
+        const staff = new staffAdminLoket({ divisi, nama, nik, nip, tanggalLahir, noHp, email, username });
+        const registeredStaff = await staffAdminLoket.register(staff, password);
+        console.log(registeredStaff)
         req.flash('success_msg', 'Berhasil menambahkan data');
-        res.render('admin/admin-dasboard');
+        res.render('admin/admin-dasboard', { registeredStaff });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             req.flash('error_msg', 'Email sudah terdaftar, silakan gunakan email lain');

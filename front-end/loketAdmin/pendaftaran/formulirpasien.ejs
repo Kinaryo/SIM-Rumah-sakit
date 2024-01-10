@@ -1,5 +1,7 @@
 <% layout('/layouts/app') %>
-
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+    <%- include('../../layouts/partials/navbar-admin-loket')  %>
+</div>
 <div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
     <form id="pendaftaranForm" action="/loket/saveformulirpasien" method="POST">
         <h3 style="text-align: center;">Form Pendaftaran Pasien</h3>
