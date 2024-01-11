@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-
     <% layout('/layouts/app') %>
+    <div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+        <%- include('../../layouts/partials/navbar-rawat-inap')  %>
+    </div>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,9 +70,6 @@
         /* Add your additional styles here */
 
     </style>
-</head>
-
-<body>
     <div>
         <div style="margin-top: 125px;">
 
@@ -133,6 +125,3 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>

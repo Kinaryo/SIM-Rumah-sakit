@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router();
 // const passport = require('passport')
-const staffAdminLoket= require('../models/staffAdminLoket')
+const staffAdminLoket= require('../models/staffAdminLoket');
+const staffRawatInap = require('../models/staffRawatInap');
 
 
 router.get('/register', (req,res)=>{
@@ -47,22 +48,30 @@ router.post('/login', async (req, res) => {
     try {
         const { username, email } = req.body;
         
-        const user = await staffAdminLoket.findOne({
+        const userAdminLoket = await staffAdminLoket.findOne({
             $or: [{ username }, { email }]
         });
-        const cekdivisi = await staffAdminLoket.findOne({divisi:"Admin Loket"})
-        console.log(cekdivisi)
 
-        if(user && cekdivisi){
+        const userRawatInap = await staffRawatInap.findOne({
+            $or:[{username},{email}]
+        })
+
+        const cekDivisiAdminLoket = await staffAdminLoket.findOne({divisi:"Admin Loket"})
+        const cekDivisiRawatInap = await staffRawatInap.findOne({divisi: "Rawat Inap"})
+        console.log('iniloh',cekDivisiRawatInap)
+
+        if(userAdminLoket && cekDivisiAdminLoket){
             req.flash('success_msg', 'You are logged in');
-            res.render('loketAdmin/dasboard', {cekdivisi});
+            res.redirect('/loket/dasboard',);
 
-        }
-
-        if (!user) {
+        }else if (userRawatInap && cekDivisiRawatInap) {
+            req.flash('success_msg','Selamat Berhasil Login');
+            res.redirect('/rawatinap/dasboard')
+            
+        }else {
             // User tidak ditemukan
             req.flash('error_msg', 'Invalid Username or Email');
-            return res.redirect('/login');
+            return res.redirect('/');
         }
 
         // Jika user ditemukan, arahkan ke dashboard

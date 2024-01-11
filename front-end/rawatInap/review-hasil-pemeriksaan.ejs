@@ -1,0 +1,80 @@
+<% layout('/layouts/app') %>
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+    <%- include('../layouts/partials/navbar-rawat-inap')  %>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+    }
+    h2 {
+        color: #333;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px 7px;
+        font-size: 13px;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #e9e3e3;
+    }
+    tr:hover {
+        background-color: #1584de;
+    }
+
+    .image a img {
+        max-width: 25px;
+    }
+    table tr th {
+        text-align: center;
+        justify-content: center;
+    }
+
+</style>
+<div style="margin-top: 125px;">
+    <h2 style="text-align: center;">Hasil Pemeriksaan (nama pasien)</h2>
+
+    <div class="row">
+        <div class="row col-sm-3">
+            <p>Nama</p>
+            <p>tanggalPemeriksaan</p>
+        </div>
+        <div class="row col-sm-3">
+            <%=  %>
+            <%=  %>
+            <%=  %>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Diagona</th>
+                <th>Keluhan</th>
+                <th>Respirasi</th>
+                <th>Tensi</th>
+                <th>Nadi</th>
+                <th>Kadar Oksigen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%=  %></td>
+            </tr>  
+        </tbody>
+    </table>
+
+
+    <a href="#"><button type="button">KEMBALI</button></a>
+</div>

@@ -17,7 +17,6 @@ router.get('/dasboard', async (req, res) => {
     res.render('rawatInap/dasboard' , {dataKamar: dataKamar});
 })
 
-
 router.get('/tambah-data-pasien-rawat-inap',async(req,res)=>{
 
     try {
@@ -63,22 +62,16 @@ router.post('/isiDataPasienRawatInap/save', async (req, res) => {
         if (!formulir) {
             return res.status(404).json({ message: 'Formulir pendaftaran tidak ditemukan' });
         }
-        // Buat objek pasienRawatInap yang baru
         const pasien = new pasienRawatInap({
-            noPendaftaran: formulirId, // Menggunakan formulirId sebagai noPendaftaran
+            noPendaftaran: formulirId,
             ...req.body.pasienRawatInap,
         });
         const formatTanggalMasukRawatInap = pasien.getMonthYearDate();
         await pasien.save();
-        // Populasikan data pasienRawatInap
         await pasienRawatInap.findById(pasien._id).populate('noPendaftaran');
-        // Perbarui formulirPasien dengan ID pasienRawatInap
         formulir.pasienRawatInapId = pasien._id;
         await formulir.save();
 
-        console.log("iniloh",formatTanggalMasukRawatInap)
-        // Render tanggapan
-        
         res.redirect('/rawatinap/daftarPasien');
     } catch (error) {
         console.error('Error:', error);
@@ -88,14 +81,8 @@ router.post('/isiDataPasienRawatInap/save', async (req, res) => {
 
 router.get('/daftarPasien', async (req, res) => {
     try {
-        // Menggunakan fungsi `populate` untuk mengisi data pasienRawatInap dengan data formulirPasien
         const semuaDataPasien = await pasienRawatInap.find()
             .populate('noPendaftaran');
-           
-            const datakamar = await semuaDataPasien.noKasur
-            console.log('datakamar',datakamar)
-        console.log('isi semua data', semuaDataPasien);
-    
         res.render('rawatInap/daftarPasien', { pasienRawatInap: semuaDataPasien});
     } catch (error) {
         console.error('Error dalam mendapatkan data pasien rawat inap:', error);
@@ -106,7 +93,6 @@ router.get('/daftarPasien', async (req, res) => {
 router.get('/controlPasien/:id',async (req,res)=>{
     const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
         .populate('noPendaftaran')
-    console.log('iniloh', pasienrawatinap)
     res.render('rawatInap/control' ,{pasienrawatinap})
 })
 
@@ -114,12 +100,33 @@ router.post('/controlPasien/:id/save', async(req,res)=>{
     const control = new controlPasien(req.body);
     const RawatInappasien = await pasienRawatInap.findById(req.params.id);
     RawatInappasien.controlPasiens.push(control)
-
     await control.save()
     await RawatInappasien.save();
 
-    res.redirect('/rawatinap/dasboard')
+    console.log(RawatInappasien)
+    // res.redirect(`/rawatinap/controlPasien/:id/hasil-pemeriksaan`)
+    res.redirect('/rawatinap/daftarPasien')
 })
+
+
+router.get('/controlPasien/:id/hasil-pemeriksaan',async(req,res)=>{
+    const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+    .populate('noPendaftaran')
+    .populate('controlPasiens')
+
+    console.log(pasienrawatinap)
+    
+    res.render('rawatInap/daftar-hasil-pemeriksaan')
+})
+
+
+router.get('/controlPasien/lihat-hasil-pemeriksaan', async(req,res)=>{
+    res.render('rawatInap/dasboard')
+})
+
+
+
+
 
 
 

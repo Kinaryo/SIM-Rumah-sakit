@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Report</title>
-
-    <!-- Link ke file CSS eksternal jika ada -->
     <% layout('/layouts/app') %>
+    <div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+        <%- include('../../layouts/partials/navbar-rawat-inap')  %>
+    </div>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,9 +88,6 @@
             margin-right: 10px;
         }
     </style>
-</head>
-
-<body>
     <div class="report-container">
         <div class="report-header" style="margin-top: 75px;">
             <h2>Laporan Mingguan</h2>

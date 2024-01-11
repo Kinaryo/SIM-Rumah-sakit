@@ -2,8 +2,12 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema
 
 const controlPasienSchema = new Schema({
+    sesi:{
+        type:String,
+    },
     tanggalPemeriksaan :{
         type : Date,
+        default: Date.now(),
     },
     keluhan:{
         type: String,

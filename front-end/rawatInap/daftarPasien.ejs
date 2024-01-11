@@ -1,4 +1,7 @@
 <% layout('/layouts/app') %>
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+    <%- include('../layouts/partials/navbar-rawat-inap')  %>
+</div>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -88,6 +91,7 @@
                     <td>
                         <div class="image">
                             <a href="/rawatinap/controlPasien/<%= pasienRawatInap[index]._id %>"><button type="button" class="bg-body-tertiary">control</button></a>
+                            <a href="/rawatinap/controlPasien/<%= pasienRawatInap[index]._id  %>/hasil-pemeriksaan"><button type="button">Riwayat</button></a>
                             <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
                             <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
                         

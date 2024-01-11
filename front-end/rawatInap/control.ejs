@@ -1,10 +1,57 @@
 <% layout('/layouts/app') %>
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+    <%- include('../layouts/partials/navbar-rawat-inap')  %>
+</div>
 
-<div class="container card py-4" style="max-width: 100vh; margin-top: 150px;">
+<style>
+    p{
+        margin-left: 0px;
+        font-size: 14px;
+        margin-top: 0;
+    }
+    
+</style>
+<div class="container card py-4" style="max-width: 75%; margin-top: 150px;">
     <form action="/rawatinap/controlPasien/<%= pasienrawatinap._id %>/save" method="POST">
-        <h3 style="text-align: center;"> Form Control Pasien</h3>
-        
-        <p>nama : <span><%= pasienrawatinap.noPendaftaran.nama %></span></p>
+        <h3 style="text-align: center;" > <span style=" border-bottom: 2px solid;"> Form Control Pasien </span></h3>
+
+
+
+    <div class="row g-3 col-sm-12">
+        <div class="row g-3 justify-content-around  col-sm-8" style="margin-top: 30px;" >
+            <div class=" row col-sm-7 justify-content-end" >
+                <div class="col-sm-6">
+                    <p>No Pendafataran</p>
+                    <p>Nama </p>
+                </div>
+                <div class="col-sm-6">
+                    <p> : <%= pasienrawatinap.noPendaftaran.noPendaftaran %></p>
+                    <p> : <%= pasienrawatinap.noPendaftaran.nama %></p>
+                </div>
+            </div>
+            <div class=" row col-sm-5">
+                <div class="col-sm-6">
+                    <p>Jenis Kelamin</p>
+                    <p>Diagnosa</p>
+                </div>
+                <div class="col-sm-6">
+                    <p> : <%= pasienrawatinap.noPendaftaran.jenisKelamin %></p>
+                    <p> : <%= pasienrawatinap.diagnosa %></p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 justify-content-around col-sm-4" style="margin-top: 15px;">
+            <div class="col-sm-6" style="font-size: 13px;">
+                <label for="tanggalPemeriksaan" class="form-label">Tanggal Pemeriksaan</label>
+                <input type="Date" name="controlPasien[tanggalPemeriksaan]" class="form-control sm " id="" placeholder="">
+            </div>
+            <div class=" col-sm-6" style="font-size: 13px;">
+                <label for="sesi" class="form-label">Sesi</label>
+                <input type="text" name="controlPasien[sesi]" class="form-control sm " id="" placeholder="">
+            </div>
+        </div>
+    </div>
+        <hr>
 
 
         <div class="d-flex justify-content-around ">
@@ -29,7 +76,7 @@
                 <input type="text" name="controlPasien[nadi]" class="form-control sm " id="nadi" placeholder="">
             </div>
             <div class="mb-1">
-                <label for="oksigen" class="form-label">kadarOksigen</label>
+                <label for="oksigen" class="form-label">Kadar Oksigen</label>
                 <input type="text" name="controlPasien[kadarOksigen]" class="form-control sm " id="oksigen" placeholder="">
             </div>
 
@@ -39,9 +86,9 @@
 
 
 
-        <div>
-            <button type="submit" class="btn btn-success mt-3">Simpan</button>
-            <a href="/pages/kartuberobat"><button type="button" class="btn  btn-danger mt-3">Cancel</button></a>
+        <div class=" d-flex justify-content-end">
+            <button type="submit" class="btn btn-success mt-3" style="margin-left: 10px;">Simpan</button>
+            <a href="/pages/kartuberobat" style="margin-left: 10px; margin-right: 10px;"><button type="button" class="btn  btn-danger mt-3">Cancel</button></a>
         </div>
     </form>
 </div>

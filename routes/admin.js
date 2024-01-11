@@ -126,30 +126,31 @@ router.post('/data-perawat/:id/edit/save', async (req, res) => {
 
 
 
+// rawat inap
+
+router.post('/tambah-staff-rawat-inap/save', async (req, res) => {
+    try {
+        const { divisi, nama, nik, nip, tanggalLahir, noHp, email,username, alamat, password } = req.body;
+        const staffRawatInapData = { divisi, nama, nik, nip, tanggalLahir, noHp, email,username, alamat,  };
+        const staffrawatinap = new staffRawatInap(staffRawatInapData);
+        const registeredStaffRawatInap = await staffRawatInap.register(staffrawatinap, password);
+
+        console.log(registeredStaffRawatInap)
+        req.flash('success_msg', 'Berhasil menambahkan data staff rawat inap');
+        res.redirect('/admin/dasboard'); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            req.flash('error_msg', 'Email sudah terdaftar, silakan gunakan email lain');
+        } else {
+            req.flash('error_msg', 'Terjadi kesalahan saat menambahkan data staff rawat inap');
+        }
+        console.error('Terjadi kesalahan:', error);
+        res.redirect('/admin/tambah-staff-rawat-inap');
+    }
+});
 
 
 
 
-
-
-// router.post('/tambah-staff-rawat-inap/save', async (req, res) => {
-//     try {
-//         const { divisi, nama, nik, nip, tanggalLahir, noHp, email, alamat, password } = req.body;
-//         const staffRawatInapData = { divisi, nama, nik, nip, tanggalLahir, noHp, email, alamat };
-//         const staffRawatInap = new staffRawatInap(staffRawatInapData);
-//         const registeredStaffRawatInap = await staffRawatInap.save();
-
-//         req.flash('success_msg', 'Berhasil menambahkan data staff rawat inap');
-//         res.redirect('/admin/dasboard'); // Redirect to the dashboard or any other route after successful save
-//     } catch (error) {
-//         if (error.name === 'MongoError' && error.code === 11000) {
-//             req.flash('error_msg', 'Email sudah terdaftar, silakan gunakan email lain');
-//         } else {
-//             req.flash('error_msg', 'Terjadi kesalahan saat menambahkan data staff rawat inap');
-//         }
-//         console.error('Terjadi kesalahan:', error);
-//         res.redirect('/admin/tambah-staff-rawat-inap');
-//     }
-// });
 
 module.exports = router
