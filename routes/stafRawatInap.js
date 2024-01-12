@@ -241,19 +241,19 @@ module.exports = router
 
 
 // Fungsi untuk mengelompokkan hasil pemeriksaan berdasarkan bulan dan tahun
-// function groupResultsByMonthAndYear(results) {
-//     const groupedResults = {};
+function groupResultsByMonthAndYear(results) {
+    const groupedResults = {};
 
-//     for (const result of results) {
-//         const date = new Date(result.tanggalPemeriksaan);
-//         const monthYearKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
+    for (const result of results) {
+        const date = new Date(result.tanggalPemeriksaan);
+        const monthYearKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
 
-//         if (!groupedResults[monthYearKey]) {
-//             groupedResults[monthYearKey] = [];
-//         }
+        if (!groupedResults[monthYearKey]) {
+            groupedResults[monthYearKey] = [];
+        }
 
-//         groupedResults[monthYearKey].push(result);
-//     }
+        groupedResults[monthYearKey].push(result);
+    }
 
-//     return groupedResults;
-// }
+    return groupedResults;
+}
