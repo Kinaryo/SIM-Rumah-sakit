@@ -20,7 +20,9 @@ const controlPasienSchema = new Schema({
     },
     respirasi:{
         type:String,
-        default:"kosong",
+    },
+    diagnosabaru:{
+        type: String,
     },
     tensi:{
         type: String,
