@@ -1,0 +1,47 @@
+<h3 class="" style="text-align: center;">Riwayat Control Pemeriksaan</h3>
+
+<!-- Tampilkan daftar bulan dan tahun sebagai pilihan -->
+<select id="monthYearSelect" onchange="showResultsForSelectedMonthYear()">
+    <% for (const monthYear in groupedResults) { %>
+        <option value="<%= monthYear %>"><%= monthYear %></option>
+    <% } %>
+</select>
+
+<!-- Tampilkan hasil pemeriksaan untuk bulan dan tahun yang dipilih -->
+<div id="resultsContainer">
+    <!-- Konten akan diisi menggunakan JavaScript -->
+</div>
+
+<!-- Script JavaScript -->
+<script>
+    function showResultsForSelectedMonthYear() {
+        const selectedMonthYear = document.getElementById('monthYearSelect').value;
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // Kosongkan konten sebelum menampilkan hasil baru
+        resultsContainer.innerHTML = "";
+
+        // Periksa apakah ada hasil untuk bulan dan tahun yang dipilih
+        if (groupedResults[selectedMonthYear]) {
+            const resultsForSelectedMonthYear = groupedResults[selectedMonthYear];
+
+            // Tampilkan hasil pemeriksaan
+            for (const result of resultsForSelectedMonthYear) {
+                const resultItem = document.createElement('div');
+                resultItem.innerHTML = `
+                    <p>Tanggal Pemeriksaan: ${result.tanggalPemeriksaan}</p>
+                    <p>Tanggal Pemeriksaan: ${result.nadi}</p>
+                    <a href="/rawatinap/controlPasien/<%= pasienrawatinap._id %>/hasil-pemeriksaan/${result._id}">
+                        <button type="button">cek</button>
+                    </a>
+                `;
+                resultsContainer.appendChild(resultItem);
+            }
+        } else {
+            // Tampilkan pesan jika tidak ada hasil
+            const noResultMessage = document.createElement('p');
+            noResultMessage.textContent = "Tidak ada hasil pemeriksaan untuk bulan dan tahun yang dipilih.";
+            resultsContainer.appendChild(noResultMessage);
+        }
+    }
+</script>

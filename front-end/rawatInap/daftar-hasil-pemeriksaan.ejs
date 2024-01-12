@@ -2,10 +2,111 @@
 <div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
     <%- include('../layouts/partials/navbar-rawat-inap')  %>
 </div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+    }
+    h2 {
+        color: #333;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px 7px;
+        font-size: 13px;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #e9e3e3;
+    }
+    tr:hover {
+        background-color: #1584de;
+    }
 
-<div class="container" style="margin-top: 150px;">
-    <h3 class="" style="text-align: center;"> Riwayat Control Pemeriksaan</h3>
+    .image a img {
+        max-width: 25px;
+    }
+    table tr th {
+        text-align: center;
+        justify-content: center;
+    }
+
+</style>
+<div style="margin-top: 125px;">
+    <h2 style="text-align: center;">Riwayat Hasil Pemeriksaan Rawat Inap</h2>
+    <div class="row g-3">
+        <div class="col-sm-2 justify-content-start">
+            <p style="margin-left: 70px;">No Pendaftaran</p>
+            <p style="margin-left: 70px;">Nama</p>
+            <p style="margin-left: 70px;">Diagnosa</p>
+        </div>
+        <div class="col-sm-5 justify-content-start">
+            <p>: <%= pasienrawatinap.noPendaftaran.noPendaftaran %></p>
+            <p>: <%= pasienrawatinap.noPendaftaran.nama %></p>
+            <p>: <%= pasienrawatinap.diagnosa %></p>
+        </div>
+    </div>
+    <div>
+        <a href="/rawatinap/controlPasien/<%= pasienrawatinap._id %>"><button type="button" class=" btn btn-success"> + <span> Pemeriksaan</span></button></a>
+        <a href="/rawatinap/controlPasien/<%= pasienrawatinap._id %>/hasil-pemeriksaan/print"><button type="button" class=" btn btn-primary">Print Riwayat Pemeriksaan</button></a>
+        <a href="/rawatinap/daftarPasien"><button type="button" class="btn btn-warning">Kembali</button></a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th style="max-width: 10px;">No</th>
+                <th style="max-width: 100px;">Tanggal Pemeriksaan</th>
+                <th>Jam Pemeriksaan</th>
+                <th>Sesi</th>
+                <th>Catatan</th>
+                <th>Aksi</th>
+            </tr>
+       
+       
+       
+       
+        </thead>
+
+        <tbody>
+        <% if (pasienrawatinap.controlPasiens && pasienrawatinap.controlPasiens.length > 0) { %>
+            <% for (let i = 0; i < pasienrawatinap.controlPasiens.length; i++){ %>
+                <tr>
+                    <td style="text-align: center;"><%= i + 1  %></td>
+                    <td style="max-width: 100px;"><%= pasienrawatinap.controlPasiens[i].getMonthYearDatePemeriksaan() %></td>
+                    <td><%= pasienrawatinap.controlPasiens[i].jamPemeriksaan %> WIT</td>
+                    <td><%= pasienrawatinap.controlPasiens[i].sesi %></td>
+                    <td><%= pasienrawatinap.controlPasiens[i].catatan %></td>
+                     <td>   <div class="image">
+                            <a href="/rawatinap/controlPasien/<%= pasienrawatinap._id %>/hasil-pemeriksaan/<%= pasienrawatinap.controlPasiens[i]._id %>">
+                                <button type="button">Detail</button>
+                        </div>
+                    </td>
+                </tr>
+                <% }} %>
+            </tbody>
 
 
-    <a href="/rawatinap/controlPasien/lihat-hasil-pemeriksaan"><button>lihat hasil Pemeriksaan</button></a>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
 </div>

@@ -33,7 +33,7 @@
         background-color: #1584de;
     }
 
-    .image a img {
+     img {
         max-width: 25px;
     }
     table tr th {
@@ -90,10 +90,14 @@
 
                     <td>
                         <div class="image">
+                        <form action="/rawatinap/daftarPasien/<%= pasienRawatInap[index]._id %>?_method=DELETE" method="POST">
+                            
+                            <button type="submit" style="background-color: transparent; border: none;"><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></button> 
                             <a href="/rawatinap/controlPasien/<%= pasienRawatInap[index]._id %>"><button type="button" class="bg-body-tertiary">control</button></a>
                             <a href="/rawatinap/controlPasien/<%= pasienRawatInap[index]._id  %>/hasil-pemeriksaan"><button type="button">Riwayat</button></a>
-                            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
-                            <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                        
+                        </form>
+                            <!-- <a href=""><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a> -->
                         
                         </div>
                     </td>

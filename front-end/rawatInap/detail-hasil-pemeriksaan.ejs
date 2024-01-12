@@ -1,0 +1,161 @@
+<% layout('/layouts/app') %>
+<div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 9999;">
+    <%- include('../layouts/partials/navbar-rawat-inap')  %>
+</div>
+
+
+<style>
+    #dataKiri p{
+        margin-left: 55px;
+    }
+
+    .dataKanan p{
+        margin-left: 100px;
+    }
+
+    #dataKanan-Kanan p{
+        margin-left: 35px;
+    }
+
+    #body-data table {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #body-data table thead tr th {
+        border: 1px solid black;
+        padding: 10px 50px;
+
+    }
+    #body-data table tbody tr td {
+        border: 1px solid black;
+        padding: 10px ;
+
+    }
+</style>
+
+<div class="container card" style="margin-top: 150px; border: none;">
+    
+    <div class="print" id="areaPrintDetailControl">
+        <div class="card text-center bg-transparent">
+            <div class="card-header bg-transparent d-flex justify-content-between" style="padding-top:15px; border: none; ">
+              <div class="logo1" style="margin-left: 30px;">
+                <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996225/simrs/rsud_merauke-modified_nep793.png" style="max-width: 100px;" alt="">
+              </div>
+              <div class="header-head">
+                <h5>KEMENTRIAN KESEHATAN REPUBLIK INDONESIA</h5>
+                <h5>RUMAH SAKIT UMUM DAERAH MERAUKE</h5>
+                <p>jl raya mandala, merauke, Papua Selatan 99616, Indonesia </p>
+                <span class="d-flex justify-content-between" style="width: 800px;">
+                    <p>Website : <span>www.rsudMerauke.com</span></p>
+                    <p>Email : <span>rsud_merauke@gmail.com</span></p>
+                </span>
+              </div>
+              <div class="logo2">
+                <img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1703996307/simrs/LOGO_KABUPATEN_MERAUKE_iv0bqk.png" style="max-width: 100px; margin-right: 50px;" alt="">
+              </div>
+            </div>
+          <hr  class="border border-black border-2 opacity-100" style="margin-top: -25px; width: 90%; margin-left: auto; margin-right:auto;">
+       
+       
+        <div class="card-body" style="text-align: left;">
+            <div>
+                <h2 style="text-align: center;"><span style="border-bottom: 1px solid black;">Hasil Pemeriksaan</span></h2>
+            </div>
+
+            
+            <div class="row g-3" style="margin-top: 20px;"  id="body-header">
+                <div class="row col-6" >
+                    <div class="col-sm-6" id="dataKiri">
+                        <p>No Pendafataran</p>
+                        <p>Nama</p>
+                        <p>Tanggal Pemeriksaan</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>: <%= pasienrawatinap.noPendaftaran.noPendaftaran %></p>
+                        <p>: <%= pasienrawatinap.noPendaftaran.nama %></p>
+                        <p>: <%= controlExamination.getMonthYearDatePemeriksaan() %></p>
+                    </div>
+                </div>
+
+                <div class="row col-6"  >
+                    <div class="col-sm-7 dataKanan" >
+                        <p>Sesi</p>
+                        <p>Jam Pemeriksaan</p>
+                        <p>Nama Dokter/Perawat</p>
+                    </div>
+                    <div class="col-sm-5" id="dataKanan-Kanan">
+                        <p>: <%= controlExamination.sesi%></p>
+                        <p>: <%= controlExamination.jamPemeriksaan %> WIT</p>
+                        <p>: (nama pemeriksa)<span style="color: red;">*</span> <%=  %></p>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div id="body-data">
+                <table style="margin-top: 10px; margin-left: auto; margin-right: auto;">
+                    <thead>
+                        <tr >
+                            <th style="border: 1px solid black;padding: 10px 50px;">Diagnosis</th>
+                            <th style="border: 1px solid black;padding: 10px 50px;">Keluhan</th>
+                            <th style="border: 1px solid black;padding: 10px 50px;">Respirasi</th>
+                            <th style="border: 1px solid black;padding: 10px 50px;">Tensi</th>
+                            <th style="border: 1px solid black;padding: 10px 50px;">Nadi</th>
+                            <th style="border: 1px solid black;padding: 10px 50px;">Kadar Oksigen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= pasienrawatinap.diagnosa %></td>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= controlExamination.Keluhan %></td>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= controlExamination.respirasi %></td>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= controlExamination.tensi %></td>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= controlExamination.nadi %></td>
+                            <td style="border: 1px solid black; padding: 10px ;"><%= controlExamination.kadarOksigen %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="row g-3 col-sm-6" id="catatan" style="margin-top: 10px;">
+                <div class="col-sm-3">
+                    <p style="margin-left: 50px;">Catatan</p>
+                </div>
+                <div class="col-sm-8">
+                    <p>: <%= controlExamination.catatan %></p>
+                </div>
+
+            </div>
+
+            <div class="row col-sm-3" style="margin-left: auto; margin-right: 40px;">
+                <div id="Qr-title" style="text-align: center;">
+                    <p>Merauke, <%= controlExamination.getMonthYearDatePemeriksaan() %></p>
+                    <p>Petugas Penanggung Jawab</p>
+                </div>
+                <div id="Qr" style="width: 100px; height: 100px; border: 2px solid black; margin-top: 10px; margin-left: auto; margin-right: auto;">
+                    <p>kode-QR</p>
+                </div>
+                <div id="Qr-name" style="margin-top: 10px; text-align: center;">
+                    <p>Nama Petugas<span style="color: red;">*</span></p>
+                    <hr>
+                    <p style="text-align: left;">NIP :</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <div id="navigasi" style="margin-top: 5px; margin-left: auto; margin-right: 30px;">
+        <a href="/rawatinap/controlPasien/<%= pasienrawatinap._id  %>/hasil-pemeriksaan"><button  class="btn btn-warning mt-3 mb-3" type="button">KEMBALI</button></a>
+        <button class="btn btn-primary mt-3 mb-3" style="width: 100px;" onclick="return printDetailControl('areaPrintDetailControl')">Print</button>
+
+    </div>
+    
+</div>

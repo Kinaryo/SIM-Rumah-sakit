@@ -81,8 +81,12 @@
             <!-- Isilah kolom-kolom lain sesuai dengan properti pasien yang sesuai -->
             <td>
                 <div class="image">
-                    <a href=><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus"></a>
-                    <a href="/admin/data-perawat/<%= dataPerawat[index]._id %>/edit"><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                    <form action="/admin/data-perawat/<%= dataPerawat[index]._id %>?_method=DELETE" method="POST">
+                        <button type="submit" style="background-color: transparent; border: none;"><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875116/simrs/image-removebg-preview_4_y1gwhd.png" alt="hapus" style="max-width: 30px;"></button> 
+                        <a href="/admin/data-perawat/<%= dataPerawat[index]._id %>/edit"><img src="https://res.cloudinary.com/ddrepuzxq/image/upload/v1702875219/simrs/image-removebg-preview_5_jysq26.png" alt="edit"></a>
+                    </form> 
+                    
+                    
                 </div>
             </td>
         </tr>

@@ -9,11 +9,18 @@ const controlPasienSchema = new Schema({
         type : Date,
         default: Date.now(),
     },
+    jamPemeriksaan:{
+        type: String,
+    },
+    catatan:{
+        type: String,
+    },
     keluhan:{
         type: String,
     },
     respirasi:{
         type:String,
+        default:"kosong",
     },
     tensi:{
         type: String,

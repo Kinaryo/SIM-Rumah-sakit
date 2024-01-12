@@ -32,6 +32,15 @@
            
         }
 
+        function printDetailControl(areaPrintDetailControl){
+           let printPage = document.getElementById(areaPrintDetailControl).innerHTML;
+           let oriPage = document.body.innerHTML;
+           document.body.innerHTML = printPage;
+           window.print();
+           
+           document.body.innerHTML = oriPage;
+           
+        }
         
     </script>
 

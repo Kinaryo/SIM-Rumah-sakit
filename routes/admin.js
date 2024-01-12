@@ -99,32 +99,27 @@ router.get('/data-perawat/:id/edit', async (req, res) => {
     }
 });
 
-router.post('/data-perawat/:id/edit/save', async (req, res) => {
+router.post('/data-perawat/:id/edit/update', async (req, res) => {
     try {
         const updatedPerawat = await perawat.findByIdAndUpdate(
-            req.params.id,
-            {
-                divisi: req.body.divisi,
-                nama: req.body.nama,
-                // tambahkan field lainnya sesuai kebutuhan
-            },
-            { new: true } // opsional, agar mengembalikan dokumen yang sudah diupdate
+            req.params.id, { ...req.body.perawat},
         );
 
         if (!updatedPerawat) {
-            // Jika dokumen tidak ditemukan
             return res.status(404).send('Perawat not found');
         }
-
         console.log(updatedPerawat);
-        res.redirect('/path/redirect/setelah/update'); // Ganti dengan path yang sesuai
+        res.redirect('/admin/daftar-perawat'); // Ganti dengan path yang sesuai
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
 
-
+router.post('/data-perawat/:id', async(req,res)=>{
+    await perawat.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/daftar-perawat')
+})
 
 // rawat inap
 

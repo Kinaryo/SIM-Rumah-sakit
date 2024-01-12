@@ -28,7 +28,7 @@
     <h1>Edit Data Perawat</h1>
 
     
-<form action="/admin/<%= editPerawat._id %>/edit/update" method="PUT">
+<form action="/admin/data-perawat/<%= editPerawat._id %>/edit/update?_method=PUT" method="POST">
 
     <div class="row" style="padding: 20px;">
         <div class="col-sm-6" > 
@@ -41,7 +41,7 @@
             </div>
             <div class="col-8">
                 <input type="text" id="nama" name="nama"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nama %>"> 
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nama %>" required> 
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             </div>
             <div class="col-8">
                 <input type="text" id="nik" name="nik"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nik %>" required>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="col-8">
                 <input type="text" id="noSTR" name="noSTR"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.noSTR %>" required>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-8">
                     <input type="number" id="nip" name="nip"
-                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nip %>" required>
                 </div>
         </div>
 
@@ -82,7 +82,7 @@
                 </div>
             <div class="col-8">
                 <input type="date" id="tanggalLahir" name="tanggalLahir"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder=""value="<%= editPerawat.tanggalLahir %>" required>
             </div>
         </div>
 
@@ -91,8 +91,7 @@
                 <label for="jenisKelamin" class="col-form-label">Jenis Kelamin</label>
             </div>
             <div class="col-8">
-                <select type="text" id="jenisKelamin" name="jenisKelamin"class="form-control" aria-describedby="passwordHelpInline" placeholder="">
-                    <option selected disabled>Pilih Jenis Kelamin</option>
+                <select type="text" id="jenisKelamin" name="jenisKelamin"class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.jenisKelamin %>" required>
                     <option value="Laki-laki">laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
@@ -120,7 +119,7 @@
                 </div>
                 <div class="col-8">
                     <input type="username" id="username" name="username"
-                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.username %>" required>
                 </div>
             </div>
     
@@ -130,7 +129,7 @@
                 </div>
                 <div class="col-8">
                     <input type="email" id="email" name="email"
-                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.email %>" required>
                 </div>
             </div>
             <div class="row g-3 align-items-center">
@@ -139,7 +138,7 @@
                 </div>
                 <div class="col-8">
                     <input type="number" id="noHp" name="noHp"
-                        class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                        class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.noHp %>" required>
                 </div>
             </div>
         
@@ -149,7 +148,7 @@
             </div>
             <div class="col-8">
                 <input type="password" id="password" name="password"
-                    class="form-control" aria-describedby="passwordHelpInline" placeholder="">
+                    class="form-control" aria-describedby="passwordHelpInline" placeholder="" value="<%= editPerawat.nama %>" required>
             </div>
         </div>
 

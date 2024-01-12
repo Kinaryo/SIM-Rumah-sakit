@@ -1,8 +1,6 @@
 const express = require('express')
 
 const formulirPasien = require ('../models/formulirPasien')
-const kartuBerobat = require('../models/kartuBerobat')
-const BPJS = require('../models/asuransi/bpjs')
 const pasienRawatInap = require('../models/pasienRawatInap')
 const controlPasien = require('../models/controlPasien')
 
@@ -90,6 +88,17 @@ router.get('/daftarPasien', async (req, res) => {
     }
 });
 
+// delete 
+router.post('/daftarPasien/:id', async(req,res)=>{
+    await pasienRawatInap.findByIdAndDelete(req.params.id);
+    res.redirect('/rawatinap/daftarpasien')
+})
+
+
+
+
+
+
 router.get('/controlPasien/:id',async (req,res)=>{
     const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
         .populate('noPendaftaran')
@@ -97,10 +106,13 @@ router.get('/controlPasien/:id',async (req,res)=>{
 })
 
 router.post('/controlPasien/:id/save', async(req,res)=>{
-    const control = new controlPasien(req.body);
-    const RawatInappasien = await pasienRawatInap.findById(req.params.id);
-    RawatInappasien.controlPasiens.push(control)
+    const control = new controlPasien(req.body.controlPasien);
     await control.save()
+    const RawatInappasien = await pasienRawatInap.findById(req.params.id);
+    
+    RawatInappasien.controlPasiens.push(control)
+ 
+    console.log(control)
     await RawatInappasien.save();
 
     console.log(RawatInappasien)
@@ -108,21 +120,61 @@ router.post('/controlPasien/:id/save', async(req,res)=>{
     res.redirect('/rawatinap/daftarPasien')
 })
 
+router.get('/controlPasien/:id/hasil-pemeriksaan', async (req, res) => {
+    try {
+        const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+            .populate('noPendaftaran')
+            .populate('controlPasiens');
 
-router.get('/controlPasien/:id/hasil-pemeriksaan',async(req,res)=>{
-    const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
-    .populate('noPendaftaran')
-    .populate('controlPasiens')
+        if (pasienrawatinap) {
+            res.render('rawatInap/daftar-hasil-pemeriksaan', { pasienrawatinap });
+        } else {
+            res.status(404).send('Pasien rawat inap tidak ditemukan.');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan server.');
+    }
+});
 
-    console.log(pasienrawatinap)
-    
-    res.render('rawatInap/daftar-hasil-pemeriksaan')
-})
+router.get('/controlPasien/:id/hasil-pemeriksaan/print', async (req, res) => {
+    try {
+        const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+            .populate('noPendaftaran')
+            .populate('controlPasiens');
 
+        if (!pasienrawatinap) {
+            return res.status(404).send('Pasien rawat inap tidak ditemukan.');
+        }
+        const groupedResults = groupResultsByMonthAndYear(pasienrawatinap.controlPasiens);
+        res.render('rawatInap/print-full-hasil-pemeriksaan', { pasienrawatinap, groupedResults });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan server.');
+    }
+});
 
-router.get('/controlPasien/lihat-hasil-pemeriksaan', async(req,res)=>{
-    res.render('rawatInap/dasboard')
-})
+router.get('/controlPasien/:id/hasil-pemeriksaan/:controlId', async (req, res) => {
+    try {
+        const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+            .populate('noPendaftaran')
+            .populate({
+                path: 'controlPasiens',
+                match: { _id: req.params.controlId }
+            });
+        const controlExamination = pasienrawatinap ? pasienrawatinap.controlPasiens.find(control => control._id.equals(req.params.controlId)) : null;
+            console.log('controlExamination',controlExamination)
+        if (controlExamination) {
+            res.render('rawatInap/detail-hasil-pemeriksaan', { pasienrawatinap, controlExamination });
+        } else {
+            res.status(404).send('Hasil pemeriksaan tidak ditemukan.');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan server.');
+    }
+});
+
 
 
 
@@ -167,3 +219,41 @@ router.get('/pasien/control', (req,res)=>{
 
 
 module.exports = router
+
+
+
+// router.get('/controlPasien/:id/hasil-pemeriksaan', async (req, res) => {
+//     try {
+//         const pasienrawatinap = await pasienRawatInap.findById(req.params.id)
+//             .populate('noPendaftaran')
+//             .populate('controlPasiens');
+
+//         if (!pasienrawatinap) {
+//             return res.status(404).send('Pasien rawat inap tidak ditemukan.');
+//         }
+//         const groupedResults = groupResultsByMonthAndYear(pasienrawatinap.controlPasiens);
+//         res.render('rawatInap/daftar-hasil-pemeriksaan', { pasienrawatinap, groupedResults });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Terjadi kesalahan server.');
+//     }
+// });
+
+
+// Fungsi untuk mengelompokkan hasil pemeriksaan berdasarkan bulan dan tahun
+// function groupResultsByMonthAndYear(results) {
+//     const groupedResults = {};
+
+//     for (const result of results) {
+//         const date = new Date(result.tanggalPemeriksaan);
+//         const monthYearKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
+
+//         if (!groupedResults[monthYearKey]) {
+//             groupedResults[monthYearKey] = [];
+//         }
+
+//         groupedResults[monthYearKey].push(result);
+//     }
+
+//     return groupedResults;
+// }

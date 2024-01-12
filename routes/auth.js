@@ -3,6 +3,7 @@ const router = express.Router();
 // const passport = require('passport')
 const staffAdminLoket= require('../models/staffAdminLoket');
 const staffRawatInap = require('../models/staffRawatInap');
+const admin = require('../models/admin')
 
 
 router.get('/register', (req,res)=>{
@@ -56,18 +57,26 @@ router.post('/login', async (req, res) => {
             $or:[{username},{email}]
         })
 
+        const userAdmin = await admin.findOne({
+            $or: [{ username }, { email }]
+        })
         const cekDivisiAdminLoket = await staffAdminLoket.findOne({divisi:"Admin Loket"})
         const cekDivisiRawatInap = await staffRawatInap.findOne({divisi: "Rawat Inap"})
         console.log('iniloh',cekDivisiRawatInap)
 
         if(userAdminLoket && cekDivisiAdminLoket){
-            req.flash('success_msg', 'You are logged in');
+            req.flash('success_msg', 'Selamat Berhasil Login');
             res.redirect('/loket/dasboard',);
 
         }else if (userRawatInap && cekDivisiRawatInap) {
             req.flash('success_msg','Selamat Berhasil Login');
             res.redirect('/rawatinap/dasboard')
             
+        }else if (userAdmin){
+            req.flash('success_msg','Selamat Berhasil Login');
+            res.redirect('/admin/dasboard')
+
+
         }else {
             // User tidak ditemukan
             req.flash('error_msg', 'Invalid Username or Email');
